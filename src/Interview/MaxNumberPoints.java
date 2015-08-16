@@ -5,6 +5,7 @@ import java.util.Map;
 
 /**
  * Created by yongyangyu on 12/8/14.
+ * Given n points on a 2D plane, find the maximum number of points that lie on the same straight line.
  */
 public class MaxNumberPoints {
     public int maxPoints(Point[] points) {
