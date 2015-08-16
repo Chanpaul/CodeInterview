@@ -30,7 +30,7 @@ public class HappyNumber {
     }
 
     public static boolean isHappy(int n) {
-        Map<Integer, Boolean> map = new HashMap<Integer, Boolean>();
+        Map<Integer, Boolean> map = new HashMap<>();
         while (true) {
             n = squareSum(n);
             if (n == 1) {
