@@ -5,6 +5,17 @@ import java.util.Map;
 
 /**
  * Created by yongyangyu on 12/20/14.
+ * Given a positive integer, return its corresponding column title as appear in an Excel sheet.
+ *
+ * For example:
+ *
+ * 1 -> A
+ * 2 -> B
+ * 3 -> C
+ * ...
+ * 26 -> Z
+ * 27 -> AA
+ * 28 -> AB
  */
 public class ExcelTitle {
     public static String convertToTitle(int n) {
