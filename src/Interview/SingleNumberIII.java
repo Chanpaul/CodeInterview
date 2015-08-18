@@ -34,7 +34,8 @@ public class SingleNumberIII {
         for (int x : nums) {
             xor ^= x;
         }
-        xor &= -xor;
+        xor &= -xor; // set the first bit of the two single numbers to be 1
+                     // if xor = 0110, then -xor = 1010, xor & (-xor) = 0010
         int single1 = 0;
         int single2 = 0;
         for (int x : nums) {
