@@ -34,28 +34,14 @@ public class SingleNumberIII {
         for (int x : nums) {
             xor ^= x;
         }
-        int mask1, mask2;
-        mask1 = mask2 = 0;
-        for (int i = 0; i < 32; i ++) {
-            if ((xor & (1 << i)) != 0) {
-                if (mask1 == 0) {
-                    mask1 = 1 << i;
-                }
-                else if (mask2 == 0) {
-                    mask2 = 1 << i;
-                }
-                else {
-                    break;
-                }
-            }
-        }
+        xor &= -xor;
         int single1 = 0;
         int single2 = 0;
         for (int x : nums) {
-            if ((x & mask1) != 0) {
+            if ((x & xor) != 0) {
                 single1 ^= x;
             }
-            if ((x & mask2) != 0) {
+            else {
                 single2 ^= x;
             }
         }
@@ -63,7 +49,7 @@ public class SingleNumberIII {
     }
 
     public static void main(String[] args) {
-        int[] nums = {1, 2, 1, 3, 2, 5};
+        int[] nums = {0,0,1,2};
         System.out.println(Arrays.toString(new SingleNumberIII().singleNumber(nums)));
     }
 }
