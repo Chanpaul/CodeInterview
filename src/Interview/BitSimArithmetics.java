@@ -35,13 +35,13 @@ public class BitSimArithmetics {
         int res = 0;
         int shift = 0;
         while (b <= a) {
-            if ((b << shift) <= a) {
+            if ((b << shift) <= a) {  // for the first time to decide an upper bound for shift
                 while ((b << shift) <= a) {
                     shift++;
                 }
                 shift--;
             }
-            else {
+            else { // from the second time, decrease shift to a proper value
                 while ((b << shift) > a) {
                     shift --;
                 }
