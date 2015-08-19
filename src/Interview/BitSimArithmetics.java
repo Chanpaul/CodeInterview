@@ -25,9 +25,31 @@ public class BitSimArithmetics {
         return sum;
     }
 
+    /**
+     * As an extension to Add() and Multiply, simulate division with add, subtract, and shift operations.
+     * @param a dividend
+     * @param b divisor
+     * @return quotient a / b
+     */
+    public static int Divide(int a, int b) {
+        int res = 0;
+        int shift = 0;
+        while ((b << shift) <= a) {
+            while ((b << shift) <= a) {
+                shift++;
+            }
+            shift--;
+            res += 1 << shift;
+            a -= b << shift;
+            shift = 0;
+        }
+        return res;
+    }
+
     public static void main(String[] args) {
         System.out.println(Add(100, 20));
         System.out.println(Add(-50, 30));
         System.out.println(Multiply(5, 9));
+        System.out.println(Divide(116, 8));
     }
 }
