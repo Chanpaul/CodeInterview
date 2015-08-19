@@ -2,7 +2,7 @@ package Interview;
 
 /**
  * Created by yongyangyu on 8/19/15.
- * Compute x*y without arithmetical operations for positive integers.
+ * Compute a X b without arithmetical operations for positive integers.
  */
 public class BitSimArithmetics {
     // Add() method works not only for negative integers but also negative integers.
