@@ -43,7 +43,7 @@ public class BitSimArithmetics {
             }
             else { // from the second time, decrease shift to a proper value
                 while ((b << shift) > a) {
-                    shift --;
+                    shift--;
                 }
             }
             res += 1 << shift;
