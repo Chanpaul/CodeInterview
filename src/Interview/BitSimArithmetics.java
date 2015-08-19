@@ -5,6 +5,7 @@ package Interview;
  * Compute x*y without arithmetical operations for positive integers.
  */
 public class BitSimArithmetics {
+    // Add() method works not only for negative integers but also negative integers.
     public static int Add(int a, int b) {
         if (b == 0) return a;
         int sum = a ^ b;
