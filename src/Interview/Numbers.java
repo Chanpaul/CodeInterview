@@ -4,6 +4,21 @@ package Interview;
  * Created by yongyangyu on 6/23/15.
  */
 public class Numbers {
+    // No conversion to string
+    // The performance may or may not be better than reverseInt();
+    public static int reverse(int x) {
+        boolean negative = false;
+        if (x < 0) negative = true;
+        long tmp = Math.abs((long)x);
+        long res = 0;
+        while (tmp != 0) {
+            res = res * 10 + (tmp % 10);
+            tmp /= 10;
+        }
+        if (res > Integer.MAX_VALUE) return 0;
+        return negative ? -(int)res : (int)res;
+    }
+    // Convert to string
     public static int reverseInt(int x) {
         boolean pos = true;
         if (x < 0) pos = false;
@@ -153,5 +168,6 @@ INT_MAX (2147483647) or INT_MIN (-2147483648) is returned.
         System.out.println(isPalindrome(10001));
         end = System.nanoTime();
         System.out.println((end - start) / 1000);
+        System.out.println(reverse(Integer.MIN_VALUE));
     }
 }
