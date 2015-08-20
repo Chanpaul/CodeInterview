@@ -30,14 +30,15 @@ public class DutchFlag {
      * i.e., swapping two equal integers will make one of them become zero!
      */
     private void swap(int[] nums, int i, int j) {
-        int tmp = nums[j];
-        nums[j] = nums[i];
-        nums[i] = tmp;
+        if (i == j || nums[i] == nums[j]) return;
+        nums[i] ^= nums[j];
+        nums[j] ^= nums[i];
+        nums[i] ^= nums[j];
     }
 
     public static void main(String[] args) {
         int[] nums = {3,4,6,7,2,3,1,6,2};
-        new DutchFlag().partition(nums, 2);
+        new DutchFlag().partition(nums, 5);
         System.out.println(Arrays.toString(nums));
     }
 }
