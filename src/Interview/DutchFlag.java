@@ -27,7 +27,7 @@ public class DutchFlag {
 
     /*
      * NOTE: the in-place XOR version of swap does not always work for integers,
-     * i.e., swap two equal integers will make one of them become zero!
+     * i.e., swapping two equal integers will make one of them become zero!
      */
     private void swap(int[] nums, int i, int j) {
         int tmp = nums[j];
