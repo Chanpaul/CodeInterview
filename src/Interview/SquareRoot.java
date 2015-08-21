@@ -4,6 +4,9 @@ package Interview;
  * Created by yongyangyu on 3/16/15.
  *
  * double sqrt(double x) implementation for Newton's method and bisection method.
+ * For Newton, the recursive relationship is f(x) = x^2 - a;
+ * To be general, the equation is J(x)*x = -f(x), where J(x) is the Jacobian matrix of f(x).
+ * x = x / 2 + a / (2 * x).
  */
 public class SquareRoot {
     public final static double EPS = 1e-4;
