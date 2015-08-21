@@ -18,21 +18,16 @@ public class RemoveFromArray {
     }
 
     public static int removeDuplicate(int[] A) {
-        if (A == null) {
-            return -1;
-        }
-        if (A.length < 2) {
-            return A.length;
-        }
-        int i = 0, j = 1;
-        while (j < A.length) {
-            if (A[j] != A[j-1]) {
-                i++;
-                A[i] = A[j];
+        int slow = 0, fast = 0;
+        if (A == null) return -1;
+        else if (A.length < 2) return ++slow;
+        else {
+            for (fast = 1; fast < A.length; fast ++) {
+                if (A[fast] == A[slow]) continue;
+                else A[++slow] = A[fast];
             }
-            j ++;
+            return ++slow;
         }
-        return i+1;
     }
 
     public static void main(String[] args) {
