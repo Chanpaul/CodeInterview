@@ -35,7 +35,7 @@ public class RemoveFromArray {
         int size = removeKey(A, 3);
         System.out.println("size = " + size);
         System.out.println(Arrays.toString(A));
-        int[] B = {2,3,5, 5,7,11,11,11,13};
+        int[] B = {2,3,5,5,7,11,11,11,13};
         int size2 = removeDuplicate(B);
         System.out.println("size2 = " + size2);
         System.out.println(Arrays.toString(B));
