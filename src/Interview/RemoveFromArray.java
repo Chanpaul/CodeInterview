@@ -24,7 +24,9 @@ public class RemoveFromArray {
         else {
             for (fast = 1; fast < A.length; fast ++) {
                 if (A[fast] == A[slow]) continue;
-                else A[++slow] = A[fast];
+                else {
+                    A[++slow] = A[fast];
+                }
             }
             return ++slow;
         }
