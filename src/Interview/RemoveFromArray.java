@@ -7,14 +7,12 @@ import java.util.Arrays;
  */
 public class RemoveFromArray {
     public static int removeKey(int[] A, int key) {
-        int i = 0, j = 0;
-        while (j < A.length) {
-            if (A[j] == key) {
-                j ++;
-            }
-            A[i ++] = A[j ++];
+        int slow = 0;
+        for (int fast = 0; fast < A.length; fast ++) {
+            if (A[fast] == key) continue;
+            A[slow++] = A[fast];
         }
-        return i;
+        return slow;
     }
 
     public static int removeDuplicate(int[] A) {
