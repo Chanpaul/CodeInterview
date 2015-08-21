@@ -23,7 +23,7 @@ public class BuySellStockTwice {
             sell[i] = Math.max(sell[i - 1], prices[i] - low);
         }
 
-        int high = prices[n-1];
+        int high = prices[n - 1];
         for (int i = n - 2; i >= 0; i --) {
             high = Math.max(high, prices[i]);
             buy[i] = Math.max(buy[i], high - prices[i]);
