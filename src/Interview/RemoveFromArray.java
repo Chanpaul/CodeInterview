@@ -6,6 +6,7 @@ import java.util.Arrays;
  * Created by yongyangyu on 11/26/14.
  */
 public class RemoveFromArray {
+    // Given a unsorted array, remove all the elements equal to the key.
     public static int removeKey(int[] A, int key) {
         int slow = 0;
         for (int fast = 0; fast < A.length; fast ++) {
@@ -15,6 +16,7 @@ public class RemoveFromArray {
         return slow;
     }
 
+    // Given a sorted array, remove all the duplicated elements.
     public static int removeDuplicate(int[] A) {
         int slow = 0, fast;
         if (A == null) return -1;
