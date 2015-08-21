@@ -18,7 +18,7 @@ public class RemoveFromArray {
     }
 
     public static int removeDuplicate(int[] A) {
-        int slow = 0, fast = 0;
+        int slow = 0, fast;
         if (A == null) return -1;
         else if (A.length < 2) return ++slow;
         else {
