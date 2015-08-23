@@ -41,14 +41,9 @@ public class ExcelTitle {
     }
 
     public static int titleToNumber(String s) {
-        Map<Character, Integer> map = new HashMap<Character, Integer>();
-        for (int i = 1; i <= 26; i ++) {
-            char ch = (char)('A' + i - 1);
-            map.put(new Character(ch), i);
-        }
         int res = 0;
         for (int i = 0; i < s.length(); i ++) {
-            res = res * 26 + map.get(s.charAt(i));
+            res = res * 26 + (s.charAt(i) - 'A' + 1);
         }
         return res;
     }
