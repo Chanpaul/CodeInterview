@@ -24,7 +24,6 @@ public class Permute {
         }
     }
 
-
     public static int[] nextPerm(int[] A) {
         // look for the longest decreasing sub-array from behind
         if (A.length < 2) return new int[A.length];
