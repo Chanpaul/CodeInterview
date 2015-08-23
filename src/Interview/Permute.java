@@ -26,45 +26,33 @@ public class Permute {
 
 
     public static int[] nextPerm(int[] A) {
-        /*if (isDec(A)) {
-            // elements in A are decreasing, return the sorted array
+        // look for the longest decreasing sub-array from behind
+        if (A.length < 2) return new int[A.length];
+        int k = A.length - 2;
+        while (k >= 0 && A[k] > A[k+1]) {
+            k--;
+        }
+        if (k == -1) {
             Arrays.sort(A);
             return A;
-        }*/
-        for (int i = A.length - 1; i > 0; i --) {
-            if (A[i] > A[i-1]) {
-                int pos1 = i - 1;
-                int pos2 = -1;
-                for (int j = i; j < A.length; j ++) {
-                    // find the smallest element larger than A[pos1]
-                    if (A[j] > A[pos1]) {
-                        if (pos2 < 0) {
-                            pos2 = j;
-                        }
-                        else {
-                            if (A[j] < A[pos2]) {
-                                pos2 = j;
-                            }
-                        }
-                    }
-                }
-                swap(A, pos1, pos2);
-                Arrays.sort(A, pos1+1, A.length);
-                return A;
-            }
         }
-        // A is decreasing
-        Arrays.sort(A);
+        // find the smallest element larger than A[k]
+        int j = k + 1;
+        for (int i = k + 1; i < A.length; i ++) {
+            if (A[i] < A[j] && A[i] > A[k]) j = i;
+        }
+        swap(A, k, j);
+        Arrays.sort(A, k + 1, A.length);
         return A;
     }
 
     public static void main(String [] args) {
-        int [] A = {1,2,3};
+        /*int [] A = {1,2,3};
         perm(A, 0, A.length-1);
         System.out.println("================");
         System.out.println(Arrays.toString(A));
-        System.out.println("================");
-        int [] P = {3,2,1,0};//{2,3,1,0};
+        System.out.println("================");*/
+        int [] P = {6,2,1,5,4,3,0};
         System.out.println(Arrays.toString(nextPerm(P)));
     }
 }
