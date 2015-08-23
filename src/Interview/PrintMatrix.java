@@ -22,26 +22,25 @@ import java.util.List;
 public class PrintMatrix {
 
     public static void spiral(int i, int m, int n, int[][] A, List<Integer> res) {
-        if (m <= 0 || n <= 0) {
-            return;
-        }
-        for (int cid = 0; cid < n; cid ++) {
+        // to be general, each row/col only process (n - 1)/(m - 1) elements from A
+        if (m <= 0 || n <= 0) return;
+        // top row
+        for (int cid = 0; cid < n - 1; cid ++) {
             res.add(A[i][i+cid]);
         }
-        for (int rid = 1; rid < m-1; rid ++) {
+        // right column
+        for (int rid = 0; rid < m - 1; rid ++) {
             res.add(A[i+rid][i+n-1]);
         }
-        if (m > 1) {
-            for (int cid = n-1; cid >= 0; cid --) {
-                res.add(A[i+m-1][i+cid]);
-            }
+        // bottom row
+        for (int cid = n - 1; cid > 0; cid --) {
+            res.add(A[i+m-1][i+cid]);
         }
-        if (n > 1) {
-            for (int rid = m-2; rid > 0; rid --) {
-                res.add(A[i+rid][i]);
-            }
+        // left column
+        for (int rid = m - 1; rid > 0; rid --) {
+            res.add(A[i+rid][i]);
         }
-        spiral(i+1, m-2, n-2, A, res);
+        spiral(i + 1, m - 2, n - 2, A, res);
     }
 
     public static List<Integer> printSpiral(int[][] A) {
@@ -57,7 +56,10 @@ public class PrintMatrix {
 
     public static void main(String[] args) {
         int[][] A = {{1,2,3}, {4,5,6}, {7,8,9}};
+        int[][] B = {{1,2,3,4}, {5,6,7,8}, {9,10,11,12}, {13,14,15,16}};
         List<Integer> res = printSpiral(A);
+        System.out.println(Arrays.toString(res.toArray()));
+        res = printSpiral(B);
         System.out.println(Arrays.toString(res.toArray()));
     }
 
