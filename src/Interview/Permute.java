@@ -47,11 +47,11 @@ public class Permute {
     }
 
     public static void main(String [] args) {
-        /*int [] A = {1,2,3};
+        int [] A = {1,2,3};
         perm(A, 0, A.length-1);
         System.out.println("================");
         System.out.println(Arrays.toString(A));
-        System.out.println("================");*/
+        System.out.println("================");
         int [] P = {6,2,1,5,4,3,0};
         System.out.println(Arrays.toString(nextPerm(P)));
     }
