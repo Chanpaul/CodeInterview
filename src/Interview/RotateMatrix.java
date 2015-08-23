@@ -49,8 +49,8 @@ public class RotateMatrix {
     public static void main(String[] args) {
         int[][] matrix = {{1,2,3,4}, {5,6,7,8}, {9,10,11,12}, {13,14,15,16}};
         int[][] res = rotate(matrix);
-        for (int i = 0; i < res.length; i ++) {
-            System.out.println(Arrays.toString(res[i]));
+        for (int[] row : res) {
+            System.out.println(Arrays.toString(row));
         }
     }
 }
