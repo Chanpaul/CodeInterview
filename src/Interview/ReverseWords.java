@@ -2,43 +2,32 @@ package Interview;
 
 /**
  * Created by yongyangyu on 12/1/14.
+ * Given an input string, reverse the string word by word.
+ *
+ * For example,
+ * Given s = "the sky is blue",
+ * return "blue is sky the".
  */
 public class ReverseWords {
-    public static String reverseWordsInSentence(String s) {
+    public static String reverseWords(String s) {
         StringBuilder sb = new StringBuilder(s);
         sb.reverse();
-        int i = 0, j = 0;
-        while (j < sb.length()) {
-            if (sb.substring(j, j+1).equals(" ")) {
-                int start = i;
-                int end = j-1;
-                while (start < end) {
-                    char tmp = sb.charAt(start);
-                    sb.setCharAt(start, sb.charAt(end));
-                    sb.setCharAt(end, tmp);
-                    start ++;
-                    end --;
-                }
-                i = j+1;
-            }
-            j ++;
+        StringBuilder res = new StringBuilder();
+        int start = 0, end = 0;
+        while (end < sb.length()) {
+            while (end < sb.length() && sb.charAt(end) != ' ') end++;
+            StringBuilder word = new StringBuilder(sb.substring(start, end));
+            // test when to append a space
+            if (res.length() > 0 && word.length() > 0) res.append(' ');
+            res.append(word.reverse().toString());
+            start = end + 1;
+            end = start;
         }
-        if (i < sb.length()) {
-            int start = i;
-            int end = sb.length() - 1;
-            while (start < end) {
-                char tmp = sb.charAt(start);
-                sb.setCharAt(start, sb.charAt(end));
-                sb.setCharAt(end, tmp);
-                start ++;
-                end --;
-            }
-        }
-        return sb.toString();
+        return res.toString();
     }
 
     public static void main(String[] args) {
-        String s = "Alice likes Bob! what about you, Cindy?";
-        System.out.println(reverseWordsInSentence(s));
+        String s = "the sky is blue";
+        System.out.println(reverseWords(s));
     }
 }
