@@ -66,19 +66,12 @@ public class PalindromeLinkedList {
         if (head == null) {
             return null;
         }
-        if (head.next == null) {
-            return head;
-        }
-        ListNode pre = head;
-        ListNode cur = pre.next;
-        ListNode next = cur.next;
-        pre.next = null; // new tail
-        cur.next = pre;
+        ListNode pre = null, cur = head, next = cur.next;
         while (next != null) {
+            cur.next = pre;
             pre = cur;
             cur = next;
-            next = next.next;
-            cur.next = pre;
+            next = cur.next;
         }
         return cur;
     }
