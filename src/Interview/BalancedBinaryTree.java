@@ -8,21 +8,21 @@ package Interview;
  */
 public class BalancedBinaryTree {
     public boolean isBalanced(TreeNode root) {
-        boolean[] notBalance = {true};
-        depth(root, notBalance);
-        return notBalance[0];
+        boolean[] balanced = {true};
+        depth(root, balanced);
+        return balanced[0];
     }
 
-    private int depth(TreeNode root, boolean[] notBalance) {
-        if (!notBalance[0]) return -1;
+    private int depth(TreeNode root, boolean[] balanced) {
+        if (!balanced[0]) return -1;
         if (root == null) return 0;
         if (root.left == null && root.right == null) {
             return 1;
         }
-        int leftDepth = depth(root.left, notBalance);
-        int rightDepth = depth(root.right, notBalance);
+        int leftDepth = depth(root.left, balanced);
+        int rightDepth = depth(root.right, balanced);
         if (Math.abs(leftDepth - rightDepth) > 1) {
-            notBalance[0] = false;
+            balancedchange[0] = false;
             return -1;
         }
         return Math.max(leftDepth, rightDepth) + 1;
