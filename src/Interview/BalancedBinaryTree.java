@@ -22,7 +22,7 @@ public class BalancedBinaryTree {
         int leftDepth = depth(root.left, balanced);
         int rightDepth = depth(root.right, balanced);
         if (Math.abs(leftDepth - rightDepth) > 1) {
-            balancedchange[0] = false;
+            balanced[0] = false;
             return -1;
         }
         return Math.max(leftDepth, rightDepth) + 1;
