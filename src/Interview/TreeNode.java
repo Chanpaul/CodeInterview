@@ -16,6 +16,12 @@ public class TreeNode {
         right = null;
     }
 
+    public TreeNode(int val, TreeNode left, TreeNode right) {
+        this.val = val;
+        this.left = left;
+        this.right = right;
+    }
+
     public static void postOrder(TreeNode root, List<TreeNode> post) {
         if (root != null) {
             postOrder(root.left, post);
