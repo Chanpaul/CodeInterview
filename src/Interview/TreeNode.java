@@ -22,6 +22,22 @@ public class TreeNode {
         this.right = right;
     }
 
+    public static void preOrder(TreeNode root, List<TreeNode> pre) {
+        if (root != null) {
+            pre.add(root);
+            preOrder(root.left, pre);
+            preOrder(root.right, pre);
+        }
+    }
+
+    public static void inOrder(TreeNode root, List<TreeNode> in) {
+        if (root != null) {
+            inOrder(root.left, in);
+            in.add(root);
+            inOrder(root.right, in);
+        }
+    }
+
     public static void postOrder(TreeNode root, List<TreeNode> post) {
         if (root != null) {
             postOrder(root.left, post);
@@ -29,6 +45,7 @@ public class TreeNode {
             post.add(root);
         }
     }
+
     public static TreeNode reverseTree(TreeNode root) {
         TreeNode rval = root;
         List<TreeNode> post = new LinkedList<TreeNode>();
