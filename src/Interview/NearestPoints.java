@@ -2,6 +2,9 @@ package Interview;
 
 /**
  * Created by yongyangyu on 9/1/15.
+ * Using Lambda expression to simplify Comparator implementation.
+ * No extra class implementation is needed, just include the implementation
+ * with automatic inference on parameter types.
  */
 import java.util.*;
 import java.util.Comparator;
