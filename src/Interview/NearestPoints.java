@@ -21,7 +21,7 @@ public class NearestPoints {
     }
 
     public Collection<Point> findNearest(int n) {
-        Comparator<Point> cmp = (Point p1, Point p2) -> {
+        Comparator<Point> cmp = (p1, p2) -> {
             if (Math.pow(focus.x - p1.x, 2) + Math.pow(focus.y - p1.y, 2) >
                     Math.pow(focus.x - p2.x, 2) + Math.pow(focus.y - p2.y, 2)) {
                 return 1;
