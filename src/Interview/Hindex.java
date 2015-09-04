@@ -36,8 +36,18 @@ public class Hindex {
         return h;
     }
 
+    // input citations is sorted ascend
+    public int hindexSorted(int[] citations, int lo, int hi) {
+        if (lo > hi) return 0;
+        int mid = lo + (hi - lo) / 2;
+        int cur = Math.min(citations[mid], citations.length - mid);
+        int tmp = Math.max(hindexSorted(citations, lo, mid - 1),
+                hindexSorted(citations, mid + 1, hi));
+        return Math.max(cur, tmp);
+    }
+
     public static void main(String[] args) {
-        int[] citations = {1,2};
-        System.out.println(new Hindex().hIndex(citations));
+        int[] citations = {2,4,7,7,7};
+        System.out.println(new Hindex().hindexSorted(citations, 0, citations.length - 1));
     }
 }
