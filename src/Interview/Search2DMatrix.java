@@ -19,7 +19,7 @@ package Interview;
  * Given target = 20, return false.
  */
 public class Search2DMatrix {
-    public boolean search(int[][] matrix, int target) {
+    public boolean searchMat(int[][] matrix, int target) {
         int row = 0, col = matrix[0].length - 1;
         while (row < matrix.length && col >= 0) {
             if (target == matrix[row][col]) return true;
