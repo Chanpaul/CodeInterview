@@ -24,6 +24,7 @@ public class FirstBadVersion {
     public int firstBadVersion(int n) {
         int lo = 0;
         long hi = (long)n + 1;
+        // invariant: isBadVersion(lo) returns false and isBadVersion(hi) returns true
         while (lo + 1 != hi) {
             int mid = lo + (int)((hi - lo) / 2);
             if (isBadVersion(mid)) {
