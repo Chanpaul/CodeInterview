@@ -17,26 +17,26 @@ public class GasStation {
             return -1;
         }
         int start = 0; // starting station index
-        int count = n - 1; // number of stations still needs to cover
-        int circle = n; // from start, size of circle to finish
+        int numAsStart = n - 1;
+        int curCircleLen = n;
         int i = (start + 1) % n; // next start station
         int tank = gas[start];
-        while (circle != 0 && count != -1) {
+        while (curCircleLen != 0 && numAsStart != -1) {
             tank -= cost[(i + n - 1) % n];
             if (tank < 0) {
                 start = i % n;
                 tank = gas[start];
                 i = (start + 1) % n;
-                count --;
-                circle = n;
+                numAsStart --;
+                curCircleLen = n;
             }
             else {
                 tank += gas[i];
                 i = (i + 1) % n;
-                circle --;
+                curCircleLen --;
             }
         }
-        if (count == -1) return -1;
+        if (numAsStart == -1) return -1;
         return start;
     }
 }
