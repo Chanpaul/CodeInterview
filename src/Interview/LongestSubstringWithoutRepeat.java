@@ -20,7 +20,9 @@ public class LongestSubstringWithoutRepeat {
             }
             else {
                 maxLen = Math.max(maxLen, i - start);
-                start = Math.max(start, charToPosition.get(s.charAt(i)) + 1); // start cannot get smaller
+                if (charToPosition.get(s.charAt(i)) >= start) { // start cannot get smaller
+                    start = charToPosition.get(s.charAt(i)) + 1;
+                }
                 charToPosition.put(s.charAt(i), i);
             }
         }
