@@ -1,7 +1,8 @@
 package Interview;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by yongyangyu on 2/10/15.
  * Given a string, find the length of the longest substring without repeating characters.
@@ -9,37 +10,29 @@ import java.util.Set;
  * which the length is 3. For "bbbbb" the longest substring is "b", with the length of 1.
  */
 public class LongestSubstringWithoutRepeat {
-    public static int lengthOfLongestSubstring(String s) {
-        int n = s.length();
-        if (n == 0) {
-            return 0;
-        }
-        int maxlen = 0, i = 0, j = 0;
-        Set<Character> set = new HashSet<Character>();
-        while (j < n) {
-            if (!set.contains(s.charAt(j))) {
-                set.add(s.charAt(j));
-                j ++;
+    public int lengthOfLongestSubstring(String s) {
+        int start = 0;
+        int maxLen = 0;
+        Map<Character, Integer> charToPosition = new HashMap<>();
+        for (int i = 0; i < s.length(); i++) {
+            if (!charToPosition.containsKey(s.charAt(i))) {
+                charToPosition.put(s.charAt(i), i);
             }
             else {
-                maxlen = Math.max(maxlen, j - i);
-                // find the repeat position
-                while (s.charAt(i) != s.charAt(j)) {
-                    set.remove(s.charAt(i));
-                    i ++;
-                }
-                i ++;
-                j ++;
+                maxLen = Math.max(maxLen, i - start);
+                start = Math.max(start, charToPosition.get(s.charAt(i)) + 1); // start cannot get smaller
+                charToPosition.put(s.charAt(i), i);
             }
         }
-        maxlen = Math.max(maxlen, n - i);
-        return maxlen;
+        maxLen = Math.max(maxLen, s.length() - start);
+        return maxLen;
     }
 
     public static void main(String[] args) {
         String s1 = "abcabcbb";
-        String s2 = "bbbbbbbb";
-        System.out.println(lengthOfLongestSubstring(s1));
-        System.out.println(lengthOfLongestSubstring(s2));
+        String s2 = "c";
+        LongestSubstringWithoutRepeat lswr = new LongestSubstringWithoutRepeat();
+        System.out.println(lswr.lengthOfLongestSubstring(s1));
+        System.out.println(lswr.lengthOfLongestSubstring(s2));
     }
 }
