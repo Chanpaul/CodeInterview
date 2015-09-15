@@ -9,32 +9,33 @@ import java.util.Map;
  * Created by yongyangyu on 12/2/14.
  */
 public class PhonePad {
-    public static List<String> numberToWords(String s) {
-        Map<Character, String[]> map = new HashMap<Character, String[]>();
-        map.put('0', new String[]{""});
-        map.put('1', new String[]{""});
-        map.put('2', new String[]{"A", "B", "C"});
-        map.put('3', new String[]{"D", "E", "F"});
-        map.put('4', new String[]{"G", "H", "I"});
-        map.put('5', new String[]{"J", "k", "L"});
-        map.put('6', new String[]{"M", "N", "O"});
-        map.put('7', new String[]{"P", "Q", "R", "S"});
-        map.put('8', new String[]{"T", "U", "V"});
-        map.put('9', new String[]{"W", "X", "Y", "Z"});
-        List<String> curr = new LinkedList<String>();
-        for (int i = 0; i < s.length(); i ++) {
-            char c = s.charAt(i);
+    public static List<String> numberToWords(String digits) {
+        Map<Character, String> map = new HashMap<>();
+        map.put('0', "");
+        map.put('1', "");
+        map.put('2', "ABC");
+        map.put('3', "DEF");
+        map.put('4', "GHI");
+        map.put('5', "JKL");
+        map.put('6', "MNO");
+        map.put('7', "PQRS");
+        map.put('8', "TUV");
+        map.put('9', "WXYZ");
+        List<String> curr = new LinkedList<>();
+        for (int i = 0; i < digits.length(); i ++) {
+            char c = digits.charAt(i);
             if (curr.size() == 0) {
-                for (String x : map.get(c)) {
-                    curr.add(x);
+                String t = map.get(c);
+                for (int j = 0; j < t.length(); j ++) {
+                    curr.add(String.valueOf(t.charAt(j)));
                 }
             }
             else {
-                List<String> update = new LinkedList<String>();
-                String[] chs = map.get(c);
-                for (String x : chs) {
+                List<String> update = new LinkedList<>();
+                String chs = map.get(c);
+                for (int j = 0; j < chs.length(); j ++) {
                     for (String y : curr) {
-                        update.add(y+x);
+                        update.add(y + String.valueOf(chs.charAt(j)));
                     }
                 }
                 curr = update;
