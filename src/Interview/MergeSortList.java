@@ -2,6 +2,7 @@ package Interview;
 
 /**
  * Created by yongyangyu on 9/15/15.
+ * Sort a linked list in O(n log n) time using constant space complexity.
  */
 public class MergeSortList {
     public ListNode sortList(ListNode head) {
