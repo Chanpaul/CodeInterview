@@ -20,7 +20,7 @@ public class SubstringConcatenationAllWords {
         List<Integer> res = new ArrayList<>();
         int len = words[0].length();
         Set<String> set = new HashSet<>();
-        int sig = 0;
+        int sig = 0;  // use a signature for testing containing all words
         for (String word: words) {
             sig += word.hashCode();
             set.add(word);
