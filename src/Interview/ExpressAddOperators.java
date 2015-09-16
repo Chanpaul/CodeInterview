@@ -21,6 +21,7 @@ public class ExpressAddOperators {
     public List<String> addOperators(String num, int target) {
         List<String> resNum = new ArrayList<>();
         List<String> resOps = new ArrayList<>();
+        if (num.equals(String.valueOf(target)) || target == Integer.MIN_VALUE) return resOps; // no need to check
         for (int i = 2; i <= num.length(); i ++) {
             generateNums(i, num, resNum, resOps, target);
         }
@@ -30,17 +31,26 @@ public class ExpressAddOperators {
     private void generateNums(int nparts, String remains, List<String> res, List<String> resOps, int target) {
         if (remains.length() == 0) return;
         if (nparts == 1) {
-            res.add(remains);
-            generateOps(res.size() - 1, "", res, target, resOps);
-            res.remove(res.size() - 1);
+            if (validNumber(remains)) {
+                res.add(remains);
+                generateOps(res.size() - 1, "", res, target, resOps);
+                res.remove(res.size() - 1);
+            }
             return;
         }
         for (int i = 1; i < remains.length(); i ++) {
-            res.add(remains.substring(0, i));
-            generateNums(nparts - 1, remains.substring(i), res, resOps, target);
-            res.remove(res.size() - 1);
+            if (validNumber(remains.substring(0, i))) {
+                res.add(remains.substring(0, i));
+                generateNums(nparts - 1, remains.substring(i), res, resOps, target);
+                res.remove(res.size() - 1);
+            }
         }
 
+    }
+
+    private boolean validNumber(String number) {
+        if (number.charAt(0) == '0' && number.length() > 1) return false;
+        return true;
     }
 
 
@@ -69,5 +79,6 @@ public class ExpressAddOperators {
         System.out.println(Arrays.toString(expr.addOperators("123", 6).toArray()));
         System.out.println(Arrays.toString(expr.addOperators("1000000009", 9).toArray()));
         System.out.println(Arrays.toString(expr.addOperators("123456789", 45).toArray()));
+        System.out.println(Arrays.toString(expr.addOperators("2147483647", 2147483647).toArray()));
     }
 }
