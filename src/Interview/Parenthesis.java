@@ -20,7 +20,7 @@ public class Parenthesis {
     }
 
     public static void main(String[] args) {
-        List<String> rval = new LinkedList<String>();
+        List<String> rval = new LinkedList<>();
         genParen(3, 0, "", rval);
         for (String s : rval) {
             System.out.println(s);
