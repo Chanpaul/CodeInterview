@@ -89,6 +89,22 @@ public class ListNode {
         return newHead;
     }
 
+    public static ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode pre = dummy, fast = head;
+        while (n != 0) {
+            fast = fast.next;
+            n --;
+        }
+        while (fast != null) {
+            pre = pre.next;
+            fast = fast.next;
+        }
+        pre.next = pre.next.next;
+        return dummy.next;
+    }
+
     public static void main(String[] args) {
         int[] testArray = {1, 2, 6, 3, 4, 5, 6};
         ListNode head = create(testArray);
@@ -101,5 +117,8 @@ public class ListNode {
         printListNodes(addTwoNumbers(l1, l2));
         System.out.print('\n');
         printListNodes(reverse(head));
+        System.out.println();
+        head = create(testArray);
+        printListNodes(removeNthFromEnd(head, 2));
     }
 }
