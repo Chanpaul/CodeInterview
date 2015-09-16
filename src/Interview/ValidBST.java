@@ -1,5 +1,7 @@
 package Interview;
 
+import java.util.List;
+
 /**
  * Created by yongyangyu on 9/15/15.
  * Given a binary tree, determine if it is a valid binary search tree (BST).
@@ -20,5 +22,18 @@ public class ValidBST {
         if (root == null) return true;
         if (root.val < lo || root.val > hi) return false;
         return isValid(root.left, lo, root.val) && isValid(root.right, root.val, hi);
+    }
+
+    private boolean inorderValid(TreeNode root, List<Integer> container) {
+        if (root == null) return true;
+        boolean left =  inorderValid(root.left, container);
+        if (!left) return false;
+        if (container.isEmpty()) container.add(root.val);
+        else {
+            if (container.get(container.size() - 1) >= root.val) return false;
+            container.add(root.val);
+        }
+        return inorderValid(root.right, container);
+
     }
 }
