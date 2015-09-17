@@ -21,7 +21,7 @@ public class ExpressAddOperators {
     public List<String> addOperators(String num, int target) {
         List<String> resNum = new ArrayList<>();
         List<String> resOps = new ArrayList<>();
-        if (num.equals(String.valueOf(target)) || target == Integer.MIN_VALUE) return resOps; // no need to check
+        if (num.equals(String.valueOf(target))) return resOps; // no need to check
         for (int i = 2; i <= num.length(); i ++) {
             generateNums(i, num, resNum, resOps, target);
         }
@@ -57,6 +57,7 @@ public class ExpressAddOperators {
     private void generateOps(int len, String ops, List<String> numList, int target, List<String> res) {
         if (len < 0) return;
         if (len == 0) {
+            if (target < 0 && !ops.contains("-")) return; // remove all the case when no '-' exists
             StringBuilder sb = new StringBuilder();
             sb.append(numList.get(0));
             for (int i = 0; i < ops.length(); i ++) {
@@ -79,6 +80,6 @@ public class ExpressAddOperators {
         System.out.println(Arrays.toString(expr.addOperators("123", 6).toArray()));
         System.out.println(Arrays.toString(expr.addOperators("1000000009", 9).toArray()));
         System.out.println(Arrays.toString(expr.addOperators("123456789", 45).toArray()));
-        System.out.println(Arrays.toString(expr.addOperators("2147483647", 2147483647).toArray()));
+        System.out.println(Arrays.toString(expr.addOperators("8999999", -999991).toArray()));
     }
 }
