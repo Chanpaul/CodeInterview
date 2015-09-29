@@ -30,7 +30,7 @@ public class DutchFlag {
      * i.e., swapping two equal integers will make one of them become zero!
      */
     private void swap(int[] nums, int i, int j) {
-        if (rnums[i] == nums[j]) return;
+        if (nums[i] == nums[j]) return;
         nums[i] ^= nums[j];
         nums[j] ^= nums[i];
         nums[i] ^= nums[j];
