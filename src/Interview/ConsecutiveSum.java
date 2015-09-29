@@ -10,28 +10,26 @@ import java.util.Map;
  */
 public class ConsecutiveSum {
     public static int[] getIndex(int[] A, int sum) {
-        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+        HashMap<Integer, Integer> map = new HashMap<>();
         if (A == null) {
             return null;
         }
         int curr = 0;
-        int [] res = null;
+        int [] res;
         for (int i = A.length - 1; i >= 0; i --) {
             curr += A[i];
             map.put(curr, i);
         }
+        res = new int[2];
         if (map.containsKey(sum)) {
-            res = new int[2];
             res[0] = map.get(sum);
             res[1] = A.length - 1;
         }
-        Iterator<Map.Entry<Integer, Integer>> iter = map.entrySet().iterator();
-        while (iter.hasNext()) {
-            Map.Entry<Integer, Integer> elem = iter.next();
-            if (map.containsKey(elem.getKey() - sum)) {
-                res = new int[2];
-                res[0] = elem.getValue();
-                res[1] = map.get(elem.getKey() - sum) - 1;
+
+        for (int key: map.keySet()) {
+            if (map.containsKey(key - sum)) {
+                res[0] = map.get(key);
+                res[1] = map.get(key - sum) - 1;
                 return res;
             }
         }
