@@ -7,7 +7,8 @@ import java.util.*;
  * Given a 2D board and a list of words from the dictionary, find all words in the board.
 
  * Each word must be constructed from letters of sequentially adjacent cell, where "adjacent" 
- * cells are those horizontally or vertically neighboring. The same letter cell may not be used more than once in a word.
+ * cells are those horizontally or vertically neighboring. The same letter cell may not be used
+ * more than once in a word.
 
  * For example,
  * Given words = ["oath","pea","eat","rain"] and board =
@@ -21,182 +22,69 @@ import java.util.*;
  * Return ["eat","oath"].
  */
 public class WordSearchII {
-    public class Tuple {
-        private int _1;
-        private int _2;
-
-        public Tuple(int f1, int f2) {
-            _1 = f1;
-            _2 = f2;
-        }
-
-        public int get_1() {
-            return _1;
-        }
-
-        public int get_2() {
-            return _2;
-        }
-
-        @Override
-        public int hashCode() {
-            return (_1 << 3) + (_2 << 1);
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (o instanceof Tuple) {
-                Tuple other = (Tuple) o;
-                return (_1 == other.get_1() && _2 == other.get_2());
-            }
-            else {
-                return false;
-            }
-        }
-    }
-
     public List<String> findWords(char[][] board, String[] words) {
-        Map<Character, List<Tuple>> posMap = letterPos(board);
-        List<String> res = new LinkedList<String>();
-        Trie trie = new Trie();
-        for (String word : words) {
-            if (word == null || word.length() == 0) {
-                continue;
-            }
-            if (!posMap.containsKey(word.charAt(0))) {
-                continue;
-            }
-            if (res.size() > 0) {
-                if (trie.startsWith(word)) {
-                    res.add(word);
-                    continue;
+        List<String> res = new ArrayList<>();
+        Map<Character, List<int[]>> char2pos = new HashMap<>();
+        int rows = board.length;
+        int cols = board[0].length;
+        for (int i = 0; i < rows; i ++) {
+            for (int j = 0; j < cols; j ++) {
+                if (!char2pos.containsKey(board[i][j])) {
+                    List<int[]> cur = new ArrayList<>();
+                    cur.add(new int[]{i, j});
+                    char2pos.put(board[i][j], cur);
+                }
+                else {
+                    List<int[]> cur = char2pos.get(board[i][j]);
+                    cur.add(new int[]{i, j});
+                    char2pos.put(board[i][j], cur);
                 }
             }
-            List<Tuple> startPos = posMap.get(word.charAt(0));
-            for (Tuple pos : startPos) {
-                if (existPath(posMap, word.substring(1), pos, board.length, board[0].length)) {
-                    res.add(word);
-                    trie.insert(word);
-                    break;
+        }
+        boolean[][] visited = new boolean[rows][cols];
+        for (String x : words) {
+            if (char2pos.containsKey(x.charAt(0))) {
+                List<int[]> starts = char2pos.get(x.charAt(0));
+                for (int[] start : starts) {
+                    if (dfs(x, visited, start, rows, cols, board)) {
+                        res.add(x);
+                        break;
+                    }
                 }
             }
         }
         return res;
     }
 
-    private Map<Character, List<Tuple>> letterPos(char[][] board) {
-        Map<Character, List<Tuple>> posMap = new HashMap<Character, List<Tuple>>();
-        for (int i = 0; i < board.length; i ++) {
-            for (int j = 0; j < board[0].length; j ++) {
-                char currLetter = board[i][j];
-                if (!posMap.containsKey(currLetter)) {
-                    List<Tuple> elem = new LinkedList<Tuple>();
-                    elem.add(new Tuple(i, j));
-                    posMap.put(currLetter, elem);
-                }
-                else {
-                    List<Tuple> elem = posMap.get(currLetter);
-                    elem.add(new Tuple(i, j));
-                    posMap.put(currLetter, elem);
-                }
-            }
-        }
-        return posMap;
+    private List<int[]> possibleDirections(int rows, int cols, int[] x) {
+        List<int[]> directions = new ArrayList<>();
+        int i = x[0], j = x[1];
+        if (i - 1 >= 0) directions.add(new int[]{i-1, j});
+        if (i + 1 < rows) directions.add(new int[]{i+1, j});
+        if (j - 1 >= 0) directions.add(new int[]{i, j - 1});
+        if (j + 1 < cols) directions.add(new int[]{i, j + 1});
+        return directions;
     }
-    //startPos is the position of last matched letter
-    //word is the remaining substring to be matched
-    private boolean existPath(Map<Character, List<Tuple>> posMap, String word, Tuple startPos, int size_x, int size_y) {
-        if (word.length() == 0) {
-            return true;
-        }
-        List<Tuple> nextPos = adjacentPos(startPos, size_x, size_y);
-        Map<Tuple, Boolean> checkMap = new HashMap<Tuple, Boolean>();
-        for (Tuple pos : nextPos) {
-            checkMap.put(pos, true);
-        }
-        if (!posMap.containsKey(word.charAt(0))) {
-            return false;
-        }
-        List<Tuple> letterPos = posMap.get(word.charAt(0));
-        for (Tuple pos : letterPos) {
-            if (checkMap.containsKey(pos)) {
-                if (existPath(posMap, word.substring(1), pos, size_x, size_y)) {
+
+    private boolean dfs(String remains, boolean[][] visited, int[] curPos,
+                        int rows, int cols, char[][] board) {
+        if (remains.length() == 0) return true;
+        if (remains.charAt(0) != board[curPos[0]][curPos[1]]) return false;
+        if (remains.substring(1).length() == 0) return true;
+        List<int[]> directions = possibleDirections(rows, cols, curPos);
+        for (int[] dir: directions) {
+            if (!visited[dir[0]][dir[1]]) {
+                visited[dir[0]][dir[1]] = true;
+                if (dfs(remains.substring(1), visited, dir, rows, cols, board)) {
+                    visited[dir[0]][dir[1]] = false;
                     return true;
+                } else {
+                    visited[dir[0]][dir[1]] = false;
                 }
             }
         }
         return false;
     }
-
-    private List<Tuple> adjacentPos(Tuple currPos, int size_x, int size_y) {
-        List<Tuple> res = new LinkedList<Tuple>();
-        int x = currPos.get_1(); int y = currPos.get_2();
-        if (y - 1 >= 0) {
-            res.add(new Tuple(x, y - 1));
-        }
-        if (y + 1 <= size_y - 1) {
-            res.add(new Tuple(x, y + 1));
-        }
-        if (x - 1 >= 0) {
-            res.add(new Tuple(x - 1, y));
-        }
-        if (x + 1 <= size_x - 1) {
-            res.add(new Tuple(x + 1, y));
-        }
-        return res;
-    }
-
-  /*  private List<List<Integer[]>> getPaths(Map<Character, List<Integer[]>> posMap, String word) {
-        List<List<Integer[]>> nullElem = new ArrayList<List<Integer[]>>();
-        if (word == null || word.length() == 0) {
-            return nullElem;
-        }
-        List<List<Integer[]>> res = new ArrayList<List<Integer[]>>();
-        for (int i = 0; i < word.length(); i ++) {
-            if (!posMap.containsKey(word.charAt(i))) {  // current letter not in the map
-                return nullElem;
-            }
-            if (res.size() == 0) { // first letter
-                for (Integer[] elem : posMap.get(word.charAt(i))) {
-                    List<Integer[]> firstPos = new ArrayList<Integer[]>();
-                    firstPos.add(elem);
-                    res.add(firstPos);
-                }
-            }
-            else {
-                List<Integer[]> currLetterPos = posMap.get(word.charAt(i));
-                List<List<Integer[]>> update = new ArrayList<List<Integer[]>>();
-                for (Integer[] candid : currLetterPos) {
-                    for (List<Integer[]> partialPath : res) {
-                        if (checkAdjcent(partialPath.get(partialPath.size() - 1), candid)) {
-                            List<Integer[]> partialExtension = new ArrayList<Integer[]>(partialPath);
-                            partialExtension.add(candid);
-                            update.add(partialExtension);
-                        }
-                    }
-                }
-                if (update.size() > 0) {
-                    res = update;
-                }
-                else {
-                    return update;
-                }
-            }
-        }
-        return res;
-    }
-
-    private boolean checkAdjcent (Integer[] pre, Integer[] curr) {
-        if (pre[0] == curr[0] && Math.abs(pre[1] - curr[1]) == 1) {
-            return true;
-        }
-        else if (pre[1] == curr[1] && Math.abs(pre[0] - curr[0]) == 1) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }*/
 
     public static void main(String[] args) {
         String[] words = {"oath","pea","eat","rain"};
