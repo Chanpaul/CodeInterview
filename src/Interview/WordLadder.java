@@ -113,7 +113,7 @@ public class WordLadder {  // BFS for all the possible strings
                     if (curr.charAt(i) == c) {
                         continue;
                     }
-                    char tmp = curr.charAt(i);
+                    char save = curr.charAt(i);
                     curr.setCharAt(i, c);
                     if (curr.toString().equals(end)) {
                         return dist + 1;
@@ -122,7 +122,7 @@ public class WordLadder {  // BFS for all the possible strings
                         level.add(curr.toString());
                         dict.remove(curr.toString());
                     }
-                    curr.setCharAt(i, tmp);
+                    curr.setCharAt(i, save);
                 }
             }
             if (q.size() == 0 && level.size() > 0) {
