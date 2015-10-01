@@ -1,8 +1,5 @@
 package Interview;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Created by yongyangyu on 4/29/15.
  */
@@ -13,7 +10,7 @@ public class Primes {
         for(int i = 2; i < sieve.length; i++){
             if(!sieve[i]){
                 count++;
-                for(int j = 2*i; j < sieve.length; j=j+i){
+                for(int j = 2*i; j < sieve.length; j = j + i){
                     sieve[j] = true;
                 }
             }
