@@ -50,7 +50,7 @@ public class WordLadder {  // BFS for all the possible strings
                     if (last.charAt(i) == c) {
                         continue;
                     }
-                    char tmp = last.charAt(i);
+                    char save = last.charAt(i);
                     last.setCharAt(i, c);
                     if (last.toString().equals(end)) {
                         find = true;
@@ -65,7 +65,7 @@ public class WordLadder {  // BFS for all the possible strings
                         use.put(last.toString(), 1);
                         //dict.remove(last.toString());
                     }
-                    last.setCharAt(i, tmp);
+                    last.setCharAt(i, save);
                 }
             }
             if (q.isEmpty() && level.size() > 0) {
