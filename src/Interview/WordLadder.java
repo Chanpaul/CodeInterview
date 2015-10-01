@@ -4,6 +4,7 @@ import java.util.*;
 
 /**
  * Created by yongyangyu on 12/7/14.
+ * Version 1: (this version only looks for the transformation sequence size)
  * Given two words (beginWord and endWord), and a dictionary's word list,
  * find the length of shortest transformation sequence from beginWord to endWord, such that:
  *
@@ -22,6 +23,28 @@ import java.util.*;
  * Return 0 if there is no such transformation sequence.
  * All words have the same length.
  * All words contain only lowercase alphabetic characters.
+ *
+ * Version 2:
+ * Given two words (beginWord and endWord), and a dictionary's word list,
+ * find all "shortest" transformation sequence(s) from beginWord to endWord, such that:
+ *
+ * Only one letter can be changed at a time
+ * Each intermediate word must exist in the word list
+ * For example,
+ *
+ * Given:
+ * beginWord = "hit"
+ * endWord = "cog"
+ * wordList = ["hot","dot","dog","lot","log"]
+ * Return
+ * [
+ *    ["hit","hot","dot","dog","cog"],
+ *    ["hit","hot","lot","log","cog"]
+ * ]
+ *
+ * Idea: Can we build a graph based on the dictionary?
+ * Start with the beginWord and end with the endWord with some shortest path algorithm.
+ * It seems that Floyd algorithm should work.
  */
 public class WordLadder {  // BFS for all the possible strings
     public static List<List<String>> getPath(String start, String end, Set<String> dict) {

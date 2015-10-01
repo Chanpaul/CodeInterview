@@ -11,10 +11,10 @@ import java.util.*;
 public class Floyd {
 
     private Map<Character, List<Integer>> getMap(char board[][]) {
-        Map<Character, List<Integer>> charPos = new HashMap<Character, List<Integer>>();
+        Map<Character, List<Integer>> charPos = new HashMap<>();
         for (int i = 0; i < board.length; i ++) {
             for (int j = 0; j < board[0].length; j ++) {
-                List<Integer> pos = new LinkedList<Integer>();
+                List<Integer> pos = new LinkedList<>();
                 pos.add(i);
                 pos.add(j);
                 charPos.put(new Character(board[i][j]), pos);
@@ -49,8 +49,8 @@ public class Floyd {
 
     public Map<List<Character>, List<String>> floyd(char board[][]) {
         Map<Character, List<Integer>> charPos = getMap(board);
-        Map<List<Character>, List<String>> map = new HashMap<List<Character>, List<String>>();
-        List<Character> flattenBoard = new ArrayList<Character>();
+        Map<List<Character>, List<String>> map = new HashMap<>();
+        List<Character> flattenBoard = new ArrayList<>();
         for (int i = 0; i < board.length; i ++) {
             for (int j = 0; j < board.length; j ++) {
                 flattenBoard.add(board[i][j]);
@@ -58,10 +58,10 @@ public class Floyd {
         }
         // "for each node, set distance to itself to 0"
         for (int i = 0; i < flattenBoard.size(); i ++) {
-            List<Character> key = new LinkedList<Character>();
+            List<Character> key = new LinkedList<>();
             key.add(flattenBoard.get(i));
             key.add(flattenBoard.get(i));
-            List<String> val = new LinkedList<String>();
+            List<String> val = new LinkedList<>();
             val.add("");
             map.put(key, val);
         }
@@ -73,10 +73,10 @@ public class Floyd {
                 }
                 String dir = direction(charPos.get(flattenBoard.get(i)), charPos.get(flattenBoard.get(j)));
                 if (dir != null) {
-                    List<Character> key = new LinkedList<Character>();
+                    List<Character> key = new LinkedList<>();
                     key.add(flattenBoard.get(i));
                     key.add(flattenBoard.get(j));
-                    List<String> val = new LinkedList<String>();
+                    List<String> val = new LinkedList<>();
                     val.add(dir);
                     map.put(key, val);
                 }
@@ -86,24 +86,24 @@ public class Floyd {
         for (int k = 0; k < flattenBoard.size(); k ++) {
             for (int i = 0; i < flattenBoard.size(); i ++) {
                 for (int j = 0; j < flattenBoard.size(); j ++) {
-                    List<Character> key = new LinkedList<Character>();
+                    List<Character> key = new LinkedList<>();
                     key.add(flattenBoard.get(i));
                     key.add(flattenBoard.get(j));
                     List<String> val = null;
                     if (map.containsKey(key)) {
                         val = map.get(key);
                     }
-                    List<Character> key1 = new LinkedList<Character>();
-                    List<Character> key2 = new LinkedList<Character>();
+                    List<Character> key1 = new LinkedList<>();
+                    List<Character> key2 = new LinkedList<>();
                     key1.add(flattenBoard.get(i));
                     key1.add(flattenBoard.get(k));
                     key2.add(flattenBoard.get(k));
                     key2.add(flattenBoard.get(j));
                     if (map.containsKey(key1) && map.containsKey(key2)) {
-                        List<Character> newKey = new LinkedList<Character>();
+                        List<Character> newKey = new LinkedList<>();
                         newKey.add(flattenBoard.get(i));
                         newKey.add(flattenBoard.get(j));
-                        List<String> newVal = new LinkedList<String>();
+                        List<String> newVal = new LinkedList<>();
                         newVal.addAll(map.get(key1));
                         newVal.addAll(map.get(key2));
                         if (val == null) {
@@ -122,9 +122,9 @@ public class Floyd {
     }
 
     public List<String> path(char board[][], char start, String target) {
-        List<String> res = new LinkedList<String>();
+        List<String> res = new LinkedList<>();
         Map<List<Character>, List<String>> map = floyd(board);
-        List<Character> curr = new LinkedList<Character>();
+        List<Character> curr = new LinkedList<>();
         curr.add(start);
         curr.add(target.charAt(0));
         res.addAll(map.get(curr));
