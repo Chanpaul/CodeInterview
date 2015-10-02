@@ -169,9 +169,7 @@ public class WordLadder {  // BFS for all the possible strings
             }
             if (q.size() == 0 && level.size() > 0) {
                 dist++;
-                for (String x : level) {
-                    q.add(x);
-                }
+                q = level;
                 level = new LinkedList<>();
             }
         }
