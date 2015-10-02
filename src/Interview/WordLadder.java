@@ -41,80 +41,99 @@ import java.util.*;
  *    ["hit","hot","dot","dog","cog"],
  *    ["hit","hot","lot","log","cog"]
  * ]
- *
- * Idea: Can we build a graph based on the dictionary?
- * Start with the beginWord and end with the endWord with some shortest path algorithm.
- * It seems that Floyd algorithm should work.
  */
 public class WordLadder {  // BFS for all the possible strings
-    public static List<List<String>> getPath(String start, String end, Set<String> dict) {
-        List<List<String>> path = new ArrayList<>();
-        if (start.length() != end.length()) {
-            return null;
-        }
-        if (start.equals("") || end.equals("")) {
-            return null;
-        }
-        if (dict.size() == 0) {
-            return null;
-        }
-        List<List<String>> q = new ArrayList<>();
-        List<String> curr = new ArrayList<>();
-        curr.add(start);
-        q.add(curr);
-        List<List<String>> level = new ArrayList<>();
+
+    public List<List<String>> findLadders(String beginWord, String endWord, Set<String> wordList) {
+        Set<List<String>> paths = new HashSet<>();
+        List<String> q = new ArrayList<>();
+        q.add(beginWord);
+        List<String> level = new ArrayList<>();
+        Map<String, List<String>> parent = new HashMap<>();
         boolean find = false;
-        HashMap<String, Integer> use = new HashMap<>();
+        Set<String> visited = new HashSet<>();
+        for (String s: q) {  // mark the elements in q as visited
+            visited.add(s);
+        }
         while (!q.isEmpty()) {
-            curr = q.remove(0);
-            StringBuilder last = new StringBuilder(curr.get(curr.size() - 1));
+            String curr = q.remove(0);
+            StringBuilder last = new StringBuilder(curr);
             for (int i = 0; i < last.length(); i ++) {
                 for (char c = 'a'; c <= 'z'; c ++) {
                     if (last.charAt(i) == c) {
                         continue;
                     }
-                    char save = last.charAt(i);
+                    char tmp = last.charAt(i);
                     last.setCharAt(i, c);
-                    if (last.toString().equals(end)) {
+                    if (last.toString().equals(endWord)) {
                         find = true;
-                        List<String> copy = new ArrayList<>(curr);
-                        copy.add(end);
-                        level.add(copy);
+                        level.add(endWord);
+                        if (!parent.containsKey(endWord)) {
+                            List<String> fathers = new ArrayList<>();
+                            fathers.add(curr);
+                            parent.put(endWord, fathers);
+                        }
+                        else {
+                            List<String> fathers = parent.get(endWord);
+                            fathers.add(curr);
+                            parent.put(endWord, fathers);
+                        }
                     }
-                    else if (dict.contains(last.toString())) {
-                        List<String> copy = new ArrayList<>(curr);
-                        copy.add(last.toString());
-                        level.add(copy);
-                        use.put(last.toString(), 1);
-                        //dict.remove(last.toString());
+                    else if (wordList.contains(last.toString())) {
+                        if (!parent.containsKey(last.toString())) {
+                            List<String> fathers = new ArrayList<>();
+                            fathers.add(curr);
+                            parent.put(last.toString(), fathers);
+                        }
+                        else {
+                            List<String> fathers = parent.get(last.toString());
+                            fathers.add(curr);
+                            parent.put(last.toString(), fathers);
+                        }
+                        level.add(last.toString());
+                        visited.add(last.toString());
                     }
-                    last.setCharAt(i, save);
+                    last.setCharAt(i, tmp);
                 }
             }
             if (q.isEmpty() && level.size() > 0) {
                 if (find) {
-                    path = new ArrayList<>();
-                    for (List<String> x : level) {
-                        if (x.get(x.size() - 1).equals(end)) {
-                            path.add(x);
-                        }
-                    }
-                    return path;
+                    paths.addAll(recoverPath(parent, endWord));
+                    return new ArrayList<>(paths);
                 }
                 else {
-                    for (List<String> x : level) {
-                        q.add(x);
-                    }
+                    q = level;
                     level = new ArrayList<>();
-                    for (String s : use.keySet()) {
-                        dict.remove(s);
+                    for (String s : visited) {
+                        wordList.remove(s);
                     }
-                    use.clear();
+                    visited.clear();
                 }
             }
         }
-        return path;
+        return new ArrayList<>(paths);
     }
+
+    private List<List<String>> recoverPath(Map<String, List<String>> parent, String end) {
+        List<List<String>> paths = new ArrayList<>();
+        List<String> x = new LinkedList<>();
+        x.add(end);
+        paths.add(x);
+        while (parent.containsKey(paths.get(0).get(0))) {
+            List<List<String>> tmp = new ArrayList<>();
+            for (List<String> part: paths) {
+                String head = part.get(0);
+                for (String pre: parent.get(head)) {
+                    List<String> prepend = new LinkedList<>(part);
+                    prepend.add(0, pre);
+                    tmp.add(prepend);
+                }
+            }
+            paths = tmp;
+        }
+        return paths;
+    }
+
     public static int ladderLength(String start, String end, Set<String> dict) {
         if (start.length() != end.length()) {
             return 0;
@@ -168,18 +187,9 @@ public class WordLadder {  // BFS for all the possible strings
             dict.add(s);
         }
         //System.out.println(ladderLength(start, end, dict));
-        List<List<String>> path = getPath(start, end, dict);
-        for (List<String> x : path) {
-            System.out.print("[");
-            for (String s : x) {
-                if (!s.equals(x.get(x.size() - 1))) {
-                    System.out.print(s + ", ");
-                }
-                else {
-                    System.out.print(s);
-                }
-            }
-            System.out.println("]");
+        List<List<String>> paths = new WordLadder().findLadders(start, end, dict);
+        for (List<String> x : paths) {
+            System.out.println(Arrays.toString(x.toArray()));
         }
     }
 }
