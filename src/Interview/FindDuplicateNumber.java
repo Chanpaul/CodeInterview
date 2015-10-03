@@ -15,25 +15,42 @@ import java.util.Arrays;
  * There is only one duplicate number in the array, but it could be repeated more than once.
  */
 public class FindDuplicateNumber {
-    public int findDuplicate(int[] nums) {
-        int res = -1;
-        for (int i = 0; i < nums.length; i ++) {
-            if (nums[Math.abs(nums[i])] < 0) res = Math.abs(nums[i]);
-            else {
-                nums[Math.abs(nums[i])] = - nums[Math.abs(nums[i])];
-            }
+    // binary-search based solution
+    public int find(int[] nums) {
+        int len = nums.length, left = 1, right = len-1;
+        while(left < right)
+        {
+            int mid = (left + right) >> 1;
+            int count = 0;
+            for(int i = 0; i < len; ++i)
+                if(nums[i] <= mid) ++count; // count LE elements
+            if (count > mid) right = mid; // update left/right
+            else left = mid + 1;
         }
-        for (int i = 0; i < nums.length; i ++) {
-            if (nums[i] < 0) {
-                nums[i] = -nums[i];
-            }
+        return left;
+    }
+
+    // slow-fast pointer based solution
+    // the array nums can be viewed as a representation of a linked list
+    public int find2(int[] nums) {
+        int n = nums.length;
+        int slow = nums[n - 1], fast = nums[slow - 1];
+        while (slow != fast) {
+            slow = nums[slow - 1];
+            fast = nums[nums[fast - 1] - 1];
         }
-        return res;
+        slow = n;
+        // move slow to the starting position
+        while (slow != fast) {
+            slow = nums[slow - 1];
+            fast = nums[fast - 1];
+        }
+        return slow;
     }
 
     public static void main(String[] args) {
         int[] nums = {1,2,3,4,3};
-        System.out.println(new FindDuplicateNumber().findDuplicate(nums));
+        System.out.println(new FindDuplicateNumber().find2(nums));
         System.out.println(Arrays.toString(nums));
     }
 }
