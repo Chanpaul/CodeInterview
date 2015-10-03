@@ -1,7 +1,5 @@
 package Interview;
 
-import java.util.Arrays;
-
 /**
  * Created by yongyangyu on 10/3/15.
  * There are N children standing in a line. Each child is assigned a rating value.
