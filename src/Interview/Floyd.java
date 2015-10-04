@@ -3,6 +3,8 @@ package Interview;
 import java.util.*;
 /**
  * Created by yongyangyu on 3/18/15.
+ * Revised on 10/04/15 for better code readability by using predecessor matrix
+ * for recovering the optimal shortest path given any to points.
  *
  * Interview question from Medallia onsite.
  * Given a two dimensional array of characters, a string as input,
