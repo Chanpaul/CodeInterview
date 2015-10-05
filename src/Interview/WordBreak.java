@@ -12,6 +12,8 @@ import java.util.*;
  * dict = ["leet", "code"].
  *
  * Return true because "leetcode" can be segmented as "leet code".
+ * DFS also works but time exceeds when the input dict looks like
+ * ["a", "aa", "aaa", "aaaaa", "aaaaa"] and s = "aaaaaaaaaaaaaaaaaaaaaa"
  */
 public class WordBreak {
     public boolean wordBreak1(String s, Set<String> wordDict) {
