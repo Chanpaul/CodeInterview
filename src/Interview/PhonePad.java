@@ -27,7 +27,7 @@ public class PhonePad {
             if (curr.size() == 0) {
                 String t = map.get(c);
                 for (int j = 0; j < t.length(); j ++) {
-                    curr.add(String.valueOf(t.charAt(j)));
+                    curr.add(t.charAt(j) + "");
                 }
             }
             else {
@@ -35,7 +35,7 @@ public class PhonePad {
                 String chs = map.get(c);
                 for (int j = 0; j < chs.length(); j ++) {
                     for (String y : curr) {
-                        update.add(y + String.valueOf(chs.charAt(j)));
+                        update.add(y + chs.charAt(j));
                     }
                 }
                 curr = update;
