@@ -25,7 +25,7 @@ public class SummaryRanges {
             }
             else {
                 if (len == 1) {
-                    summary.add(String.valueOf(start));
+                    summary.add(start + "");
                 }
                 else if (len > 1) {
                     summary.add(start + "->" + curr);
@@ -36,7 +36,7 @@ public class SummaryRanges {
             }
         }
         if (curr == start) {
-            summary.add(String.valueOf(curr));
+            summary.add(curr + "");
         }
         else {
             summary.add(start + "->" + curr);
