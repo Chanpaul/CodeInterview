@@ -18,7 +18,7 @@ public class NumberDigitOnes {
         if (n <= 0) {
             return 0;
         }
-        String sn = String.valueOf(n);
+        String sn = n + "";
         int accum = 0;
         for (int i = 1; i < sn.length(); i ++) {
             accum += onesLevelK(i);
@@ -49,7 +49,7 @@ public class NumberDigitOnes {
             count += n - (int) Math.pow(10, sn.length() - 1) + 1;
         }
         n %= (int) Math.pow(10, sn.length() - 1);
-        sn = String.valueOf(n);
+        sn = n + "";
         // compute the number of 1's from Y00..0 ~ Yxx..x, where Y-th position is computed
         int accum = 0;
         for (int i = 1; i < sn.length(); i ++) {
