@@ -10,10 +10,10 @@ import java.util.Map;
  */
 public class NumberNoRepeatDigit {
     public static List<Integer> getNoRepDigitNumbers(int[] arr) {
-        List<Integer> res = new LinkedList<Integer>();
+        List<Integer> res = new LinkedList<>();
         for (int x : arr) {
-            Map<Character, Boolean> map = new HashMap<Character, Boolean>();
-            String curr = String.valueOf(x);
+            Map<Character, Boolean> map = new HashMap<>();
+            String curr = x + "";
             boolean dup = false;
             for (int i = 0; i < curr.length(); i ++) {
                 char ch = curr.charAt(i);
