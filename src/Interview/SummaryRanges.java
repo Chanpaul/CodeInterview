@@ -28,7 +28,7 @@ public class SummaryRanges {
                     summary.add(String.valueOf(start));
                 }
                 else if (len > 1) {
-                    summary.add(String.valueOf(start) + "->" + String.valueOf(curr));
+                    summary.add(start + "->" + curr);
                 }
                 start = nums[i];
                 curr = start;
@@ -39,7 +39,7 @@ public class SummaryRanges {
             summary.add(String.valueOf(curr));
         }
         else {
-            summary.add(String.valueOf(start) + "->" + String.valueOf(curr));
+            summary.add(start + "->" + curr);
         }
         return summary;
     }
