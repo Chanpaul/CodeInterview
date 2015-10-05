@@ -18,20 +18,20 @@ public class MissingRanges {
         for (int i = 0; i < nums.length; i ++) {
             if (i == 0) {
                 if (nums[i] > lower) {
-                    if (nums[i] - lower == 1) miss.add(String.valueOf(lower));
+                    if (nums[i] - lower == 1) miss.add(lower + "");
                     else miss.add(lower + "->" + (nums[i] - 1));
                 }
             }
             else { // compare nums[i] and nums[i-1]
                 if (nums[i] - nums[i-1] == 1) continue;
-                else if (nums[i] - nums[i-1] == 2) miss.add(String.valueOf(nums[i-1]+1));
+                else if (nums[i] - nums[i-1] == 2) miss.add((nums[i-1]+1) + "");
                 else {
                     miss.add((nums[i-1]+1) + "->" + (nums[i]-1));
                 }
             }
         }
         if (nums[nums.length - 1] < upper) {
-            if (upper - nums[nums.length - 1] == 1) miss.add(String.valueOf(upper));
+            if (upper - nums[nums.length - 1] == 1) miss.add(upper + "");
             else miss.add((nums[nums.length - 1] + 1) + "->" + upper);
         }
         return miss;
