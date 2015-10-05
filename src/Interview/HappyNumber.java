@@ -20,7 +20,7 @@ import java.util.Map;
  */
 public class HappyNumber {
     private static int squareSum(int x) {
-        String digits = String.valueOf(x);
+        String digits = x + "";
         int res = 0;
         for (int i = 0; i < digits.length(); i ++) {
             int d = digits.charAt(i) - '0';
