@@ -11,7 +11,7 @@ public class MostFreqSum {
     public static int getSum(int end) {
         Map<Integer, Integer> map = new HashMap<Integer, Integer>();
         for (int i = 0; i <= end; i ++) {
-            String s = String.valueOf(i);
+            String s = i + "";
             int sum = 0;
             for (int j = 0; j < s.length(); j ++) {
                 sum += (int)(s.charAt(j) - '0');
