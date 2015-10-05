@@ -26,14 +26,14 @@ public class BinaryTreePaths {
     private void traverse(TreeNode root, List<String> paths, String cur) {
         if (root == null) return;
         if (root.left == null && root.right == null) {
-            paths.add(cur + String.valueOf(root.val));
+            paths.add(cur + root.val);
             return;
         }
         if (root.left != null) {
-            traverse(root.left, paths, cur + String.valueOf(root.val) + "->");
+            traverse(root.left, paths, cur + root.val + "->");
         }
         if (root.right != null) {
-            traverse(root.right, paths, cur + String.valueOf(root.val) + "->");
+            traverse(root.right, paths, cur + root.val + "->");
         }
     }
 
