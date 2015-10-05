@@ -48,8 +48,8 @@ public class LargestNumber {
 
         @Override
         public int compare(Integer x, Integer y) {
-            String s1 = String.valueOf(x);
-            String s2 = String.valueOf(y);
+            String s1 = x + "";
+            String s2 = y + "";
             return myCompare(s1, s2);
         }
     }

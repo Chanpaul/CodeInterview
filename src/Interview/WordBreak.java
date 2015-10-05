@@ -18,27 +18,27 @@ import java.util.*;
 public class WordBreak {
     public static List<String> wordBreak(String s, Set<String> dict) {
         List<String> rval = null;
-        Map<Integer, LinkedList<LinkedList<String>>> map = new HashMap<Integer, LinkedList<LinkedList<String>>>();
+        Map<Integer, LinkedList<LinkedList<String>>> map = new HashMap<>();
         if (s.length() == 0 && dict.size() == 0) {
-            rval = new LinkedList<String>();
+            rval = new LinkedList<>();
             rval.add("");
         }
         if (dict.contains(String.valueOf(s.charAt(0)))) {
-            LinkedList<LinkedList<String>> tmp = new LinkedList<LinkedList<String>>();
-            tmp.add(new LinkedList<String>());
+            LinkedList<LinkedList<String>> tmp = new LinkedList<>();
+            tmp.add(new LinkedList<>());
             tmp.get(0).add(String.valueOf(s.charAt(0)));
             map.put(0, tmp);
         }
         for (int i = 1; i < s.length(); i ++) {
             if (dict.contains(s.substring(0, i + 1))) {
-                LinkedList<LinkedList<String>> tmp = new LinkedList<LinkedList<String>>();
-                tmp.add(new LinkedList<String>());
+                LinkedList<LinkedList<String>> tmp = new LinkedList<>();
+                tmp.add(new LinkedList<>());
                 tmp.get(0).add(s.substring(0, i + 1));
                 map.put(i, tmp);
             }
             for (int j = i-1; j >= 0; j --) {
                 if (dict.contains(s.substring(j+1, i+1)) && map.containsKey(j)) {
-                    LinkedList<LinkedList<String>> tmp = new LinkedList<LinkedList<String>>(map.get(j));
+                    LinkedList<LinkedList<String>> tmp = new LinkedList<>(map.get(j));
                     for (int k = 0; k < tmp.size(); k ++) {
                         tmp.get(k).add(s.substring(j+1, i + 1));
                     }
@@ -47,7 +47,7 @@ public class WordBreak {
                         curr = map.get(i);
                     }
                     if (curr == null) {
-                        curr = new LinkedList<LinkedList<String>>();
+                        curr = new LinkedList<>();
                     }
                     for (LinkedList<String> x : tmp) {
                         curr.add(x);
@@ -57,7 +57,7 @@ public class WordBreak {
             }
         }
         if (map.containsKey(s.length() - 1)) {
-            rval = new LinkedList<String>();
+            rval = new LinkedList<>();
             for (LinkedList<String> x : map.get(s.length() - 1)) {
                 StringBuilder sb = new StringBuilder();
                 sb.append(x.get(0));
@@ -73,7 +73,7 @@ public class WordBreak {
 
     public static void main(String[] args) {
         String s = "catsanddog";
-        Set<String> dict = new HashSet<String>();
+        Set<String> dict = new HashSet<>();
         dict.add("cat");
         dict.add("cats");
         dict.add("and");
