@@ -50,6 +50,7 @@ public class ScrambleString {
         int n = s1.length();
         boolean[][][] dp = new boolean[n][n][n];
         // dp[i][j][k] means s1[i:i+k+1] is a scramble of s2[j:j+k+1]
+        // starting from s1[i] and s2[j], with length of k
         for (int i = 0; i < n; i ++) {
             for (int j = 0; j < n; j ++) {
                 if (s1.charAt(i) == s2.charAt(j))
