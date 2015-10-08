@@ -45,7 +45,7 @@ public class SubstringConcatenationAllWords {
 
     public static void main(String[] args) {
         String s = "bbabbbab";
-        String[] words = {"ab", "bb", "bc", "ac"};
+        String[] words = {"ab", "bb"};
         System.out.println(Arrays.toString(new SubstringConcatenationAllWords()
                             .findSubstring(s, words).toArray()));
     }
