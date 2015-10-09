@@ -33,7 +33,7 @@ public class UniqueBSTII {
             return res;
         }
         for (int i = 0; i < nodes.length; i ++) {
-            for (TreeNode left : buildTrees(Arrays.copyOfRange(nodes, 0, i))) {
+            for (TreeNode left: buildTrees(Arrays.copyOfRange(nodes, 0, i))) {
                 for (TreeNode right: buildTrees(Arrays.copyOfRange(nodes, i+1, nodes.length))) {
                     TreeNode root = new TreeNode(nodes[i]);
                     root.left = left;
