@@ -20,7 +20,7 @@ public class Permute {
         return res;
     }
 
-    public static void perm(int[] A, int i, int n, Set<List<Integer>> res) {
+    private static void perm(int[] A, int i, int n, Set<List<Integer>> res) {
         if (i == n) {
             List<Integer> cur = new ArrayList<>();
             for (int x : A) {
