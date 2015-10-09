@@ -130,43 +130,39 @@ public class Floyd {
         List<String> res = new LinkedList<>();
         Map<List<Character>, Character> parent = floyd(board);
         for (int i = 0; i < target.length(); i ++) {
-            res.addAll(getPath(char2pos, parent, start, target.charAt(i)));
+            //res.addAll(getPath(char2pos, parent, start, target.charAt(i)));
+            res.add(getPath(char2pos, parent, start, target.charAt(i)));
             start = target.charAt(i);
         }
         return res;
     }
 
-    private List<String> getPath(Map<Character, int[]>char2pos, Map<List<Character>, Character> parent,
-                                 char from, char to) {
-        List<String> res = new LinkedList<>();
+    private String getPath(Map<Character, int[]>char2pos, Map<List<Character>, Character> parent, char from, char to) {
         List<Character> key = new ArrayList<>();
         key.add(from);
         key.add(to);
-        res.add("OK");
-        while (parent.get(key) != from) {
-            char middle = parent.get(key);
-            res.add(0, direction(char2pos.get(middle), char2pos.get(to)));
-            to = middle;
-            key.remove(key.size() - 1);
-            key.add(to);
+        if (parent.get(key) == from) {
+            return direction(char2pos.get(from), char2pos.get(to)) + "OK";
         }
-        res.add(0, direction(char2pos.get(from), char2pos.get(to)));
-        return res;
+        else {
+            String tmp = getPath(char2pos, parent, from, parent.get(key));
+            return tmp.substring(0, tmp.length()-2) +
+                    direction(char2pos.get(parent.get(key)), char2pos.get(to)) + "OK";
+        }
     }
 
     public static void main(String[] args) {
-        char board[][] = {{'A', 'B', 'C', 'D', 'E'},
-                          {'F', 'G', 'H', 'I', 'J'},
-                          {'K', 'L', 'M', 'N', 'O'},
-                          {'P', 'Q', 'R', 'S', 'T'},
-                          {'U', 'V', 'W', 'X', 'Y'}};
+        char board[][] = {{'A', 'B', 'C', 'D', 'E', 'Z'},
+                          {'F', 'G', 'H', 'I', 'J', '$'},
+                          {'K', 'L', 'M', 'N', 'O', '&'},
+                          {'P', 'Q', 'R', 'S', 'T', '!'},
+                          {'U', 'V', 'W', 'X', 'Y', ' '}};
         String str = "MATRIX";
         char start = 'A';
         Floyd f = new Floyd();
         List<String> route = f.path(board, start, str);
         for (String s : route) {
             System.out.print(s);
-            System.out.print(" ");
         }
         System.out.println();
     }
