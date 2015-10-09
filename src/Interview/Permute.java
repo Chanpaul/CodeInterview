@@ -1,8 +1,6 @@
 package Interview;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by yongyangyu on 11/26/14.
@@ -14,7 +12,15 @@ public class Permute {
         A[j] = tmp;
     }
 
-    public static void perm(int[] A, int i, int n, List<List<Integer>> res) {
+    public static List<List<Integer>> permute(int[] A) {
+        Set<List<Integer>> set = new HashSet<>();
+        perm(A, 0, A.length-1, set);
+        List<List<Integer>> res = new ArrayList<>();
+        res.addAll(set);
+        return res;
+    }
+
+    public static void perm(int[] A, int i, int n, Set<List<Integer>> res) {
         if (i == n) {
             List<Integer> cur = new ArrayList<>();
             for (int x : A) {
@@ -23,7 +29,7 @@ public class Permute {
             res.add(cur);
             return;
         }
-        for (int j = i; j <=n; j ++) {
+        for (int j = i; j <= n; j ++) {
             swap(A, i, j);
             perm(A, i+1, n, res);
             swap(A, i, j);
@@ -52,9 +58,8 @@ public class Permute {
     }
 
     public static void main(String [] args) {
-        int [] A = {1,2,3};
-        List<List<Integer>> res = new ArrayList<>();
-        perm(A, 0, A.length-1, res);
+        int [] A = {2, 2, 3, 0};
+        List<List<Integer>> res = permute(A);
         for (List x : res) {
             System.out.println(Arrays.toString(x.toArray()));
         }
