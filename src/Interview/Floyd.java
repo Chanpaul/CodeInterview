@@ -130,7 +130,6 @@ public class Floyd {
         List<String> res = new LinkedList<>();
         Map<List<Character>, Character> parent = floyd(board);
         for (int i = 0; i < target.length(); i ++) {
-            //res.addAll(getPath(char2pos, parent, start, target.charAt(i)));
             res.add(getPath(char2pos, parent, start, target.charAt(i)));
             start = target.charAt(i);
         }
