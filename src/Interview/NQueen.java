@@ -67,6 +67,7 @@ public class NQueen {
         }
     }
 
+    // check if the first row queens are valid
     private boolean valid(int row, int[] cols) {
         for (int i = 0; i < row; i ++) {
             if (cols[row] == cols[i] ||
