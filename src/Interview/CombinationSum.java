@@ -18,50 +18,45 @@ import java.util.*;
  * [2, 2, 3]
  */
 public class CombinationSum {
-    public static void combination(int[] num, int start, int target, ArrayList<Integer> curr,
-                                   ArrayList<ArrayList<Integer>> res) {
-        if (target == 0) {
-            res.add(new ArrayList<Integer>(curr));
-            return;
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<List<Integer>>> res = new ArrayList<>();
+        for (int i = 0; i <= target; i ++) {
+            List<List<Integer>> elem = new ArrayList<>();
+            res.add(elem);
         }
-        if (target < 0 || start >= num.length) {
-            return;
-        }
-        for (int i = start; i < num.length; i ++) {
-            if (i > start && num[i] == num[i-1]) {  // handle duplicate elements
-                continue;
+        int[] dp = new int[target+1];
+        dp[0] = 1;
+        Arrays.sort(candidates);
+        for (int c = 0; c < candidates.length; c ++) {
+            if (c > 0 && candidates[c] == candidates[c-1]) continue;
+            for (int i = candidates[c]; i <= target; i ++) {
+                if (i-candidates[c] == 0) {
+                    List<Integer> tmp = new ArrayList<>();
+                    tmp.add(candidates[c]);
+                    res.get(i).add(tmp);
+                }
+                else if (dp[i-candidates[c]] > 0) {
+                    List<List<Integer>> curr = res.get(i-candidates[c]);
+                    for (List<Integer> x: curr) {
+                        List<Integer> y = new ArrayList<>(x);
+                        y.add(candidates[c]);
+                        res.get(i).add(y);
+                    }
+                }
+                dp[i] += dp[i-candidates[c]];
             }
-            curr.add(num[i]);
-            combination(num, i + 1, target-num[i], curr, res);
-            curr.remove(curr.size() - 1);
         }
+        return res.get(target);
     }
 
-    public static ArrayList<ArrayList<Integer>> solve(int[] num, int target) {
-        ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
-        if (num == null || num.length == 0) {
-            return res;
-        }
-        Arrays.sort(num);
-        combination(num, 0, target, new ArrayList<Integer>(), res);
-        return res;
-    }
 
     public static void main(String[] args) {
         int[] num = {14,6,25,9,30,20,33,34,28,30,16,12,31,9,9,12,34,16,25,32,8,7,30,12,33,20,21,29,24,17,27,34,11,17,30,6,32,21,27,17,16,8,24,12,12,28,11,33,10,32,22,13,34,18,12};
         int target = 27;
-        ArrayList<ArrayList<Integer>> res = solve(num, target);
+        List<List<Integer>> res = new CombinationSum().combinationSum(num, target);
         if (res != null) {
             for (List<Integer> x : res) {
-                System.out.print("[");
-                for (int i = 0; i < x.size(); i++) {
-                    if (i < x.size() - 1) {
-                        System.out.print(x.get(i) + ", ");
-                    } else {
-                        System.out.print(x.get(i));
-                    }
-                }
-                System.out.println("]");
+                System.out.println(Arrays.toString(x.toArray()));
             }
         }
     }
