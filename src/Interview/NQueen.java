@@ -28,11 +28,31 @@ import java.util.List;
  *  ]
  */
 public class NQueen {
+    private int count = 0;
+
     public List<List<String>> solveNQueens(int n) {
         int[] cols = new int[n];
         List<List<String>> res = new ArrayList<>();
         queens(n, 0, cols, res);
         return res;
+    }
+
+    public int nqueens(int n) {
+        int[] cols = new int[n];
+        countQueens(n, 0, cols);
+        return count;
+    }
+
+    private void countQueens(int n, int row, int[] cols) {
+        if (row == n) count ++;
+        else {
+            for (int i = 0; i < n; i ++) {
+                cols[row] = i;
+                if (valid(row, cols)) {
+                    countQueens(n, row+1, cols);
+                }
+            }
+        }
     }
 
     private void queens(int n, int row, int[] cols, List<List<String>> res) {
@@ -84,5 +104,6 @@ public class NQueen {
         for (List<String> x: res) {
             System.out.println(Arrays.toString(x.toArray()));
         }
+        System.out.println(queens.nqueens(5));
     }
 }
