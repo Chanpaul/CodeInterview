@@ -11,32 +11,16 @@ package Interview;
  */
 public class GasStation {
     public int canCompleteCircuit(int[] gas, int[] cost) {
-        int n = gas.length;
-        if (n == 1) { // a circle consisting of one station
-            if (gas[0] >= cost[0]) return 0;
-            return -1;
-        }
-        int start = 0; // starting station index
-        int numAsStart = n - 1;
-        int curCircleLen = n;
-        int i = (start + 1) % n; // next start station
-        int tank = gas[start];
-        while (curCircleLen != 0 && numAsStart != -1) {
-            tank -= cost[(i + n - 1) % n];
-            if (tank < 0) {
-                start = i % n;
-                tank = gas[start];
-                i = (start + 1) % n;
-                numAsStart --;
-                curCircleLen = n;
-            }
-            else {
-                tank += gas[i];
-                i = (i + 1) % n;
-                curCircleLen --;
+        int total = 0, sum = 0;
+        int j = -1;
+        for (int i = 0; i < gas.length; i ++) {
+            sum += gas[i] - cost[i];
+            total += gas[i] - cost[i];
+            if (sum < 0) {
+                j = i;
+                sum = 0;
             }
         }
-        if (numAsStart == -1) return -1;
-        return start;
+        return total >= 0 ? (j + 1) % gas.length : -1;
     }
 }
