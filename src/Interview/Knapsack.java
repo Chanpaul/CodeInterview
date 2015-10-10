@@ -5,6 +5,7 @@ package Interview;
  * 0-1 knapsack problem
  */
 public class Knapsack {
+    // let K(w) = maxmum value achievable with knapsack of capacity w
     public static int maxValueWithRepeat(int W, int[] weight, int[] value) {
         int[] K = new int[W + 1];
         for (int w = 1; w <= W; w ++) {
@@ -19,6 +20,7 @@ public class Knapsack {
         return K[W];
     }
 
+    // let K(w, j) = maximum value achievable using knapsack of capacity w and items 1,...,j
     public static int maxValueWithoutRepeat(int W, int[] weight, int[] value) {
         int[][] K = new int[W + 1][weight.length + 1];
         for (int j = 1; j < K[0].length; j ++) {
