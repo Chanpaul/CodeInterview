@@ -38,7 +38,7 @@ public class CombinationSumII {
                     parent.add(i);
                 }
             }
-            Map<Integer, Set<List<Integer>>> tmp = new HashMap<>();
+            Map<Integer, Set<List<Integer>>> tmp = new HashMap<>(); // make a copy before modification
             for (int p: parent) {
                 tmp.put(p, new HashSet<>(res.get(p)));
             }
