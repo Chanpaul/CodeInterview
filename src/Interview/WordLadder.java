@@ -44,95 +44,63 @@ import java.util.*;
  */
 public class WordLadder {  // BFS for all the possible strings
 
-    public List<List<String>> findLadders(String beginWord, String endWord, Set<String> wordList) {
-        Set<List<String>> paths = new HashSet<>();
-        List<String> q = new ArrayList<>();
-        q.add(beginWord);
-        List<String> level = new ArrayList<>();
-        Map<String, List<String>> parent = new HashMap<>();
-        boolean find = false;
-        Set<String> visited = new HashSet<>();
-        for (String s: q) {  // mark the elements in q as visited
-            visited.add(s);
-        }
-        while (!q.isEmpty()) {
-            String curr = q.remove(0);
-            StringBuilder last = new StringBuilder(curr);
-            for (int i = 0; i < last.length(); i ++) {
-                for (char c = 'a'; c <= 'z'; c ++) {
-                    if (last.charAt(i) == c) {
-                        continue;
+    public List<List<String>> findLadders(String start, String end, Set<String> words) {
+        Map<String, List<List<String>>> dictStart = new HashMap<>();
+        Map<String, List<List<String>>> dictEnd = new HashMap<>();
+        dictStart.put(start, new ArrayList<>());
+        dictEnd.put(end, new ArrayList<>());
+        dictStart.get(start).add(new ArrayList<>());
+        dictEnd.get(end).add(new ArrayList<>());
+        dictStart.get(start).get(0).add(start); dictEnd.get(end).get(0).add(end);
+        words.remove(start); words.remove(end);
+        List<List<String>> resultList = new ArrayList<>();
+        while(dictStart.size() != 0 && dictEnd.size() != 0){
+            Map<String, List<List<String>>> newDict = new HashMap<>();
+            Map<String, List<List<String>>> tmpDict1, tmpDict2;
+            Set<String> visited = new HashSet<>();
+            tmpDict1 = dictEnd; tmpDict2 = dictStart;
+            if(dictStart.size() < dictEnd.size()) { tmpDict1 = dictStart; tmpDict2 = dictEnd; }
+            boolean getResults = false;
+            for(Map.Entry<String, List<List<String>>> kv : tmpDict1.entrySet()){
+                StringBuilder sb = new StringBuilder(kv.getKey());
+                for(int i = 0; i < sb.length(); i++){
+                    char ch = sb.charAt(i);
+                    for(char rep = 'a'; rep <= 'z'; rep++){
+                        if(rep == ch) continue;
+                        sb.setCharAt(i, rep);
+                        String newStr = sb.toString();
+                        if(tmpDict2.containsKey(newStr)){
+                            List<List<String>> list1 = tmpDict2.get(newStr), list2 = kv.getValue();
+                            for(int j = 0; j < list1.size(); j++)
+                                for(int k = 0; k < list2.size(); k++){
+                                    List<String> result = new ArrayList<>(list1.get(j));
+                                    for(int l = list2.get(k).size() - 1; l >= 0; l--)
+                                        result.add(list2.get(k).get(l));
+                                    if(result.get(0) != start) Collections.reverse(result);
+                                    resultList.add(result);
+                                }
+                            getResults = true;
+                        }
+                        else if(words.contains(newStr) && !getResults){
+                            if(!visited.contains(newStr)) visited.add(newStr);
+                            if(!newDict.containsKey(newStr)) newDict.put(newStr, new ArrayList<>());
+                            for(List<String> list : kv.getValue()){
+                                newDict.get(newStr).add(new ArrayList<>(list));
+                                newDict.get(newStr).get(newDict.get(newStr).size() - 1).add(newStr);
+                            }
+                        }
                     }
-                    char tmp = last.charAt(i);
-                    last.setCharAt(i, c);
-                    if (last.toString().equals(endWord)) {
-                        find = true;
-                        level.add(endWord);
-                        if (!parent.containsKey(endWord)) {
-                            List<String> fathers = new ArrayList<>();
-                            fathers.add(curr);
-                            parent.put(endWord, fathers);
-                        }
-                        else {
-                            List<String> fathers = parent.get(endWord);
-                            fathers.add(curr);
-                            parent.put(endWord, fathers);
-                        }
-                    }
-                    else if (wordList.contains(last.toString())) {
-                        if (!parent.containsKey(last.toString())) {
-                            List<String> fathers = new ArrayList<>();
-                            fathers.add(curr);
-                            parent.put(last.toString(), fathers);
-                        }
-                        else {
-                            List<String> fathers = parent.get(last.toString());
-                            fathers.add(curr);
-                            parent.put(last.toString(), fathers);
-                        }
-                        level.add(last.toString());
-                        visited.add(last.toString());
-                    }
-                    last.setCharAt(i, tmp);
+                    sb.setCharAt(i, ch);
                 }
             }
-            if (q.isEmpty() && level.size() > 0) {
-                if (find) {
-                    paths.addAll(recoverPath(parent, endWord));
-                    return new ArrayList<>(paths);
-                }
-                else {
-                    q = level;
-                    level = new ArrayList<>();
-                    for (String s : visited) {
-                        wordList.remove(s);
-                    }
-                    visited.clear();
-                }
-            }
+            if(getResults) break;
+            words.removeAll(visited);
+            if(tmpDict1 == dictStart) dictStart = newDict;
+            else dictEnd = newDict;
         }
-        return new ArrayList<>(paths);
+        return resultList;
     }
 
-    private List<List<String>> recoverPath(Map<String, List<String>> parent, String end) {
-        List<List<String>> paths = new ArrayList<>();
-        List<String> x = new LinkedList<>();
-        x.add(end);
-        paths.add(x);
-        while (parent.containsKey(paths.get(0).get(0))) {
-            List<List<String>> tmp = new ArrayList<>();
-            for (List<String> part: paths) {
-                String head = part.get(0);
-                for (String pre: parent.get(head)) {
-                    List<String> prepend = new LinkedList<>(part);
-                    prepend.add(0, pre);
-                    tmp.add(prepend);
-                }
-            }
-            paths = tmp;
-        }
-        return paths;
-    }
 
     public static int ladderLength(String start, String end, Set<String> dict) {
         if (start.length() != end.length()) {
