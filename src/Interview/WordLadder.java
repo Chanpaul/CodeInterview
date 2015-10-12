@@ -43,7 +43,6 @@ import java.util.*;
  * ]
  */
 public class WordLadder {  // BFS for all the possible strings
-
     public List<List<String>> findLadders(String start, String end, Set<String> words) {
         Map<String, List<List<String>>> dictStart = new HashMap<>();
         Map<String, List<List<String>>> dictEnd = new HashMap<>();
