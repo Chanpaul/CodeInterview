@@ -1,5 +1,7 @@
 package Interview;
 
+import java.util.List;
+
 /**
  * Created by yongyangyu on 4/23/15.
  */
@@ -87,6 +89,41 @@ public class ListNode {
         head.next.next = head;
         head.next = null;
         return newHead;
+    }
+
+    // Reverse a linked list from position m to n. Do it in-place and in one-pass.
+    public static ListNode reverseBetween(ListNode head, int m, int n) {
+        if (m == n) return head;
+        ListNode pre = null;
+        ListNode start = null, end = null, curr = head;
+        int k = 1;
+        while (k <= n) {
+            if (k + 1 == m) pre = curr;
+            if (k == m) start = curr;
+            if (k == n) end = curr;
+            curr = curr.next;
+            k ++;
+        }
+        if (m != 1) {
+            pre.next = reverse(start, end);
+            return head;
+        }
+        else return reverse(start, end);
+    }
+
+    public static ListNode reverse(ListNode head, ListNode tail) {
+        ListNode pre = head;
+        ListNode curr = head.next;
+        ListNode next = curr.next;
+        head.next = tail.next;
+        while (curr != tail) {
+            next = curr.next;
+            curr.next = pre;
+            pre = curr;
+            curr = next;
+        }
+        curr.next = pre;
+        return tail;
     }
 
     public static ListNode removeNthFromEnd(ListNode head, int n) {
