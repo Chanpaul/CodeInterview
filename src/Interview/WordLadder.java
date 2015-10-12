@@ -58,7 +58,9 @@ public class WordLadder {  // BFS for all the possible strings
             Map<String, List<List<String>>> tmpDict1, tmpDict2;
             Set<String> visited = new HashSet<>();
             tmpDict1 = dictEnd; tmpDict2 = dictStart;
-            if(dictStart.size() < dictEnd.size()) { tmpDict1 = dictStart; tmpDict2 = dictEnd; }
+            if(dictStart.size() < dictEnd.size()) {
+                tmpDict1 = dictStart; tmpDict2 = dictEnd;
+            }
             boolean getResults = false;
             for(Map.Entry<String, List<List<String>>> kv : tmpDict1.entrySet()){
                 StringBuilder sb = new StringBuilder(kv.getKey());
