@@ -14,7 +14,7 @@ public class DivideTwoIntegers {
         long a = dividend >= 0 ? dividend : -(long)dividend;
         long b = divisor >= 0 ? divisor : -(long)divisor;
         while (a >= b) {
-            int mult = 1;
+            long mult = 1;
             long bb = b;
             while (a >= bb) {
                 a -= bb;
@@ -26,6 +26,15 @@ public class DivideTwoIntegers {
             }
         }
         if (sign) return -result;
-        else return result;
+        else {
+            if (result < 0)
+                return Integer.MAX_VALUE;
+            return result;
+        }
+    }
+    public static void main(String[] args) {
+        int a = -2147483648;
+        int b = -1;
+        System.out.println(new DivideTwoIntegers().divide(a, b));
     }
 }
