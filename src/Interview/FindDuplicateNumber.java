@@ -20,7 +20,7 @@ public class FindDuplicateNumber {
         int len = nums.length, left = 1, right = len-1;
         while(left < right)
         {
-            int mid = (left + right) >> 1;
+            int mid = left + (right - left) / 2;
             int count = 0;
             for(int i = 0; i < len; ++i)
                 if(nums[i] <= mid) ++count; // count LE elements
