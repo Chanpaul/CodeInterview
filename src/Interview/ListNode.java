@@ -94,37 +94,36 @@ public class ListNode {
     // Reverse a linked list from position m to n. Do it in-place and in one-pass.
     public static ListNode reverseBetween(ListNode head, int m, int n) {
         if (m == n) return head;
-        ListNode pre = null;
-        ListNode start = null, end = null, curr = head;
-        int k = 1;
-        while (k <= n) {
-            if (k + 1 == m) pre = curr;
-            if (k == m) start = curr;
-            if (k == n) end = curr;
-            curr = curr.next;
-            k ++;
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode pivot = null;
+        ListNode pre = dummy;
+        ListNode curr = pre.next;
+        ListNode next = curr.next;
+        ListNode node = null;
+        for (int i = 1; i <= n; i ++) {
+            if (i <= m) {
+                if (i == m) {
+                    pivot = pre;
+                    node = curr;
+                }
+                pre = curr;
+                curr = next;
+                next = next.next;
+            }
+            else {
+                node.next = next;
+                curr.next = pivot.next;
+                pivot.next = curr;
+                curr = next;
+                if (next != null) {
+                    next = next.next;
+                }
+            }
         }
-        if (m != 1) {
-            pre.next = reverse(start, end);
-            return head;
-        }
-        else return reverse(start, end);
+        return dummy.next;
     }
 
-    public static ListNode reverse(ListNode head, ListNode tail) {
-        ListNode pre = head;
-        ListNode curr = head.next;
-        ListNode next = curr.next;
-        head.next = tail.next;
-        while (curr != tail) {
-            next = curr.next;
-            curr.next = pre;
-            pre = curr;
-            curr = next;
-        }
-        curr.next = pre;
-        return tail;
-    }
 
     public static ListNode removeNthFromEnd(ListNode head, int n) {
         ListNode dummy = new ListNode(0);
