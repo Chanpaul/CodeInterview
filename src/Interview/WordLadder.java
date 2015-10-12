@@ -94,7 +94,7 @@ public class WordLadder {  // double-end BFS
                     sb.setCharAt(i, ch); //set back the original character
                 }
             }
-            if(findResults) break;
+            if(findResults) return resultList;
             words.removeAll(visited);
             if(tmpDict1 == dictStart) dictStart = newDict;
             else dictEnd = newDict;
