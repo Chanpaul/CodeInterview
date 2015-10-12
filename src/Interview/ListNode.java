@@ -100,7 +100,7 @@ public class ListNode {
         ListNode pre = dummy;
         ListNode curr = pre.next;
         ListNode next = curr.next;
-        ListNode node = null;
+        ListNode node = null; // recording the node at position m
         for (int i = 1; i <= n; i ++) {
             if (i <= m) {
                 if (i == m) {
