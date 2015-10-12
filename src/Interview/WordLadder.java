@@ -42,7 +42,7 @@ import java.util.*;
  *    ["hit","hot","lot","log","cog"]
  * ]
  */
-public class WordLadder {  // BFS for all the possible strings
+public class WordLadder {  // double-end BFS
     public List<List<String>> findLadders(String start, String end, Set<String> words) {
         Map<String, List<List<String>>> dictStart = new HashMap<>();
         Map<String, List<List<String>>> dictEnd = new HashMap<>();
@@ -58,10 +58,10 @@ public class WordLadder {  // BFS for all the possible strings
             Map<String, List<List<String>>> tmpDict1, tmpDict2;
             Set<String> visited = new HashSet<>();
             tmpDict1 = dictEnd; tmpDict2 = dictStart;
-            if(dictStart.size() < dictEnd.size()) {
+            if(dictStart.size() < dictEnd.size()) { // choose a shorter position to start
                 tmpDict1 = dictStart; tmpDict2 = dictEnd;
             }
-            boolean getResults = false;
+            boolean findResults = false;
             for(Map.Entry<String, List<List<String>>> kv : tmpDict1.entrySet()){
                 StringBuilder sb = new StringBuilder(kv.getKey());
                 for(int i = 0; i < sb.length(); i++){
@@ -75,14 +75,14 @@ public class WordLadder {  // BFS for all the possible strings
                             for(int j = 0; j < list1.size(); j++)
                                 for(int k = 0; k < list2.size(); k++){
                                     List<String> result = new ArrayList<>(list1.get(j));
-                                    for(int l = list2.get(k).size() - 1; l >= 0; l--)
+                                    for(int l = list2.get(k).size() - 1; l >= 0; l--) // reversely add
                                         result.add(list2.get(k).get(l));
                                     if(result.get(0) != start) Collections.reverse(result);
                                     resultList.add(result);
                                 }
-                            getResults = true;
+                            findResults = true;
                         }
-                        else if(words.contains(newStr) && !getResults){
+                        else if(words.contains(newStr) && !findResults){
                             if(!visited.contains(newStr)) visited.add(newStr);
                             if(!newDict.containsKey(newStr)) newDict.put(newStr, new ArrayList<>());
                             for(List<String> list : kv.getValue()){
@@ -91,10 +91,10 @@ public class WordLadder {  // BFS for all the possible strings
                             }
                         }
                     }
-                    sb.setCharAt(i, ch);
+                    sb.setCharAt(i, ch); //set back the original character
                 }
             }
-            if(getResults) break;
+            if(findResults) break;
             words.removeAll(visited);
             if(tmpDict1 == dictStart) dictStart = newDict;
             else dictEnd = newDict;
