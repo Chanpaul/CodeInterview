@@ -15,68 +15,28 @@ package Interview;
  */
 public class NumberDigitOnes {
     public int countDigitOne(int n) {
-        if (n <= 0) {
-            return 0;
-        }
-        String sn = n + "";
-        int accum = 0;
-        for (int i = 1; i < sn.length(); i ++) {
-            accum += onesLevelK(i);
-        }
-        return currentLevel(n, sn) + accum;
-    }
-
-    private int currentLevel(int n, String sn) {
         int count = 0;
-        if (n < 10) {
-            if (n == 0) {
-                return 0;
-            }
-            else {
-                return 1;
-            }
+        int len = ("" + n).length();
+        for (int i = 0; i < len; i ++) {
+            count += count1sInRangeAtDigit(n, i);
         }
-
-        int div = n / (int)Math.pow(10, sn.length() - 1);
-        if (div > 1) {
-            int smaller = 0;
-            for (int i = 1; i < sn.length(); i++) {
-                smaller += onesLevelK(i);
-            }
-            count += smaller + (int) Math.pow(10, sn.length() - 1);
-            count += (div - 2) * smaller;
-        } else {
-            count += n - (int) Math.pow(10, sn.length() - 1) + 1;
-        }
-        n %= (int) Math.pow(10, sn.length() - 1);
-        sn = n + "";
-        // compute the number of 1's from Y00..0 ~ Yxx..x, where Y-th position is computed
-        int accum = 0;
-        for (int i = 1; i < sn.length(); i ++) {
-            accum += onesLevelK(i);
-        }
-        return count + currentLevel(n, sn) + accum;
+        return count;
     }
 
-    private int onesLevelK(int k) {
-        if (k == 1) {
-            return 1;
-        }
-        int[] level = new int[k];
-        level[0] = 1;
-        for (int i = 1; i < level.length; i ++) {
-            int tmp = 0;
-            for (int j = 0; j <= i - 1; j ++) {
-                tmp += level[j];
-            }
-            level[i] = (int)Math.pow(10, i) + 9 * tmp;
-        }
-        return level[level.length - 1];
+    private int count1sInRangeAtDigit(int number, int d) {
+        long power = (long)Math.pow(10, d);
+        long nextPower = power * 10;
+        long right = number % power;
+        long down = number - number % nextPower;
+        long up = down + nextPower;
+        long digit = (number / power) % 10;
+        if (digit < 1) return (int)(down / 10);
+        else if (digit == 1) return (int)(down / 10 + right + 1);
+        else return (int)(up / 10);
     }
 
     public static void main(String[] args) {
-        int n = 1000;
+        int n = 1410065408;
         System.out.println(new NumberDigitOnes().countDigitOne(n));
-        //System.out.println(new NumberDigitOnes().onesLevelK(3));
     }
 }
