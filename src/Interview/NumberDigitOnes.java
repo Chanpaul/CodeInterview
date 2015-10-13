@@ -23,6 +23,7 @@ public class NumberDigitOnes {
         return count;
     }
 
+    // count #1's at d-th digit position
     private int count1sInRangeAtDigit(int number, int d) {
         long power = (long)Math.pow(10, d);
         long nextPower = power * 10;
