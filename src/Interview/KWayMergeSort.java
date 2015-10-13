@@ -17,16 +17,13 @@ public class KWayMergeSort {
         }
     }
 
-    class HeapComparator implements Comparator<HeapNode> {
-        @Override
-        public int compare(HeapNode n1, HeapNode n2) {
-            if (n1.val < n2.val) return -1;
-            else if (n1.val > n2.val) return 1;
-            else return 0;
-        }
-    }
     public List<Integer> mergeSort(List<List<Integer>> input) {
-        PriorityQueue<HeapNode> pq = new PriorityQueue<>(10, new HeapComparator());
+        Comparator<HeapNode> comp = (a, b) -> {
+            if (a.val < b.val) return -1;
+            else if (a.val > b.val) return 1;
+            return 0;
+        };
+        PriorityQueue<HeapNode> pq = new PriorityQueue<>(10, comp);
         List<Integer> result = new ArrayList<>();
         for (int i = 0; i < input.size(); i ++) {
             List<Integer> elem = input.get(i);
