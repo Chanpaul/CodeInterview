@@ -27,10 +27,10 @@ public class NumberDigitOnes {
     private int count1sInRangeAtDigit(int number, int d) {
         long power = (long)Math.pow(10, d);
         long nextPower = power * 10;
-        long right = number % power;
-        long down = number - number % nextPower;
-        long up = down + nextPower;
-        long digit = (number / power) % 10;
+        long right = number % power;  // number to the right of the d-th digit
+        long down = number - number % nextPower; // round down, i.e., erase from 0th - d-th digit to 0
+        long up = down + nextPower; // round up, i.e., increase (d+1)-th digit by 1
+        long digit = (number / power) % 10; // d-th digit in number
         if (digit < 1) return (int)(down / 10);
         else if (digit == 1) return (int)(down / 10 + right + 1);
         else return (int)(up / 10);
