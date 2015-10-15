@@ -53,6 +53,31 @@ public class Subset {
         return result;
     }
 
+    // recusive version of subset solutionaddadd
+    public List<List<Integer>> subSet(int[] nums) {
+        List<Integer> tmp = new LinkedList<>();
+        for (int x: nums)
+            tmp.add(x);
+        return getSubset(tmp);
+    }
+
+    public List<List<Integer>> getSubset(List<Integer> nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        if (nums.size() == 0) {
+            result.add(new ArrayList<>()); // empty set
+            return result;
+        }
+        int curr = nums.remove(0);
+        List<List<Integer>> mySubset = getSubset(nums);
+        for (List<Integer> list: mySubset) {
+            result.add(new ArrayList<>(list));
+            List<Integer> tmp = new ArrayList<>(list);
+            tmp.add(0, curr);
+            result.add(tmp);
+        }
+        return result;
+    }
+
     public static void main(String[] args) {
         int[] nums = {1,2,2};
         List<List<Integer>> res = new Subset().subsetDup(nums);
