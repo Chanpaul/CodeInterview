@@ -30,7 +30,7 @@ public class DecodeWays {
         }
         List<List<String>> dp = new ArrayList<>();
         for (int i = 0; i < s.length(); i ++) {
-            dp.add(new LinkedList());
+            dp.add(new ArrayList<>());
         }
         if (map.containsKey(String.valueOf(s.charAt(0)))) {
             dp.get(0).add(map.get(String.valueOf(s.charAt(0))));
