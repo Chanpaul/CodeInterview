@@ -43,13 +43,8 @@ public class Combinations {
 
     private List<List<Integer>> combination(int k, List<Integer> set) {
         List<List<Integer>> res = new ArrayList<>();
-        if (k == 0) return res;
-        else if (k == 1) {
-            for (int x: set) {
-                List<Integer> elem = new ArrayList<>();
-                elem.add(x);
-                res.add(elem);
-            }
+        if (k == 0) {
+            res.add(new ArrayList<>());
             return res;
         }
         else {
@@ -70,7 +65,7 @@ public class Combinations {
     }
 
     public static void main(String[] args) {
-        List<List<Integer>> res = new Combinations().combine(13, 13);
+        List<List<Integer>> res = new Combinations().combine(5, 3);
         for (List<Integer> elem: res) {
             System.out.println(Arrays.toString(elem.toArray()));
         }
