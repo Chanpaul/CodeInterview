@@ -34,7 +34,9 @@ public class LRUCache {
         private int capacity;
 
         public myCache(int capacity) {
-            super(capacity+1, 1.0f, true);
+            // (initialCapacity, loadFactor, accessOrder)
+            // true for access-order, false for insertion-order
+            super(capacity+1, 0.75f, true);
             this.capacity = capacity;
         }
 
