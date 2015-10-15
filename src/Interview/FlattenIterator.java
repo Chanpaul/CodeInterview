@@ -57,7 +57,7 @@ public class FlattenIterator {
 
 
     public static void main(String[] args) throws Exception {
-        List<Iterator<String>> lists = new ArrayList<Iterator<String>>();
+        List<Iterator<String>> lists = new ArrayList<>();
         lists.add(Arrays.asList("a", "b" ,"c").iterator());
         lists.add(null);
         lists.add(Arrays.<String>asList().iterator());
