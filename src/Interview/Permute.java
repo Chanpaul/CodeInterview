@@ -20,6 +20,7 @@ public class Permute {
         return res;
     }
 
+    // generate all the permutations starting with A[i]
     private static void perm(int[] A, int i, int n, Set<List<Integer>> res) {
         if (i == n) {
             List<Integer> cur = new ArrayList<>();
@@ -31,7 +32,7 @@ public class Permute {
         }
         for (int j = i; j <= n; j ++) {
             swap(A, i, j);
-            perm(A, i+1, n, res);
+            perm(A, i+1, n, res); // generate all the permutations starting with A[i+1]
             swap(A, i, j);
         }
     }
