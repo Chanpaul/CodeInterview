@@ -28,9 +28,9 @@ public class DecodeWays {
         for (int i = 1; i <= 26; i ++) {
             map.put(String.valueOf(i), String.valueOf((char)('A' + (i-1))));
         }
-        List<List<String>> dp = new ArrayList<List<String>>();
+        List<List<String>> dp = new ArrayList<>();
         for (int i = 0; i < s.length(); i ++) {
-            dp.add(new LinkedList<String>());
+            dp.add(new LinkedList());
         }
         if (map.containsKey(String.valueOf(s.charAt(0)))) {
             dp.get(0).add(map.get(String.valueOf(s.charAt(0))));
