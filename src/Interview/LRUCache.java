@@ -1,7 +1,7 @@
 package Interview;
 
 import java.util.LinkedHashMap;
-import java.util.Map.Entry;
+import java.util.Map;
 /**
  * Created by yongyangyu on 12/8/14.
  * Design and implement a data structure for Least Recently Used (LRU) cache.
@@ -40,7 +40,7 @@ public class LRUCache {
             this.capacity = capacity;
         }
 
-        protected boolean removeEldestEntry(Entry entry) {
+        protected boolean removeEldestEntry(Map.Entry entry) {
             return (size() > this.capacity);
         }
     }
