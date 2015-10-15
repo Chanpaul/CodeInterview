@@ -35,17 +35,17 @@ public class CombineSumIII {
     private static List<List<Integer>> combine(int num, int target, int low) {
         if (num == 1) {
             if (target >= low && target <= 9) {
-                List<Integer> elem = new LinkedList<Integer>();
+                List<Integer> elem = new LinkedList<>();
                 elem.add(target);
-                List<List<Integer>> res = new LinkedList<List<Integer>>();
+                List<List<Integer>> res = new LinkedList<>();
                 res.add(elem);
                 return res;
             }
             else {
-                return new LinkedList<List<Integer>>();
+                return new LinkedList<>();
             }
         }
-        List<List<Integer>> rval = new LinkedList<List<Integer>>();
+        List<List<Integer>> rval = new LinkedList<>();
         for (int i = low; i <= target - num; i ++) {
             List<List<Integer>> partial = combine(num - 1, target - i, i + 1);
             if (partial.size() > 0) {
