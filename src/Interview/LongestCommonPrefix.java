@@ -9,22 +9,21 @@ public class LongestCommonPrefix {
         if (strs == null || strs.length == 0) {
             return "";
         }
-        String prefix = strs[0];
-        int len = prefix.length();
+        String prefix = null;
+        int len = Integer.MAX_VALUE;
         // look for the shortest string in the array
-        for (int i = 1; i < strs.length; i ++) {
-            if (strs[i].length() < len) {
-                len = strs[i].length();
-                prefix = strs[i];
+        for (String str: strs) {
+            if (str.length() < len) {
+                len = str.length();
+                prefix = str;
             }
         }
         int matchLen = Integer.MAX_VALUE;
         // compare each element with the shortest one
-        for (int i = 0; i < strs.length; i ++) {
-            String curr = strs[i];
+        for (String str: strs) {
             int match = 0;
-            for (int j = 0; j < prefix.length(); j ++ ) {
-                if (prefix.charAt(j) == curr.charAt(j)) {
+            for (int i = 0; i < prefix.length(); i ++ ) {
+                if (prefix.charAt(i) == str.charAt(i)) {
                     match ++;
                 }
                 else {
