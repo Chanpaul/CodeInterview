@@ -51,8 +51,7 @@ public class Fraction2Str {
             p1 = p1 * 10 % b;
             sb.append(p2);
         }
-        if (repeat) {
-            // add parenthesis
+        if (repeat) { // add parenthesis
             sb.insert(repeatPos, '(');
             sb.append(')');
         }
