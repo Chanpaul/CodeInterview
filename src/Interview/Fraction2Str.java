@@ -54,8 +54,8 @@ public class Fraction2Str {
             sb.append(')');
         }
         else {
-            if (p1 * 10 / b != 0) {
-                sb.append(p1 * 10 / b);
+            if (p * 10 / b != 0) {
+                sb.append(p * 10 / b);
             }
         }
         return sb.toString();
