@@ -71,7 +71,7 @@ public class VirtualBoard {
                 }
             }
         }
-        else {
+        else { // move y's first
             if (y1 < y2) {
                 for (int j = 0; j < y2 - y1; j++) {
                     res += "R";
