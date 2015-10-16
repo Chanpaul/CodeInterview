@@ -30,6 +30,7 @@ public class VirtualBoard {
             for (int j = 0; j < width; j ++) {
                 map.put((char)('A' + cnt), new int[]{row, j});
                 cnt ++;
+                if (cnt >= 26) break;
             }
             row ++;
         }
