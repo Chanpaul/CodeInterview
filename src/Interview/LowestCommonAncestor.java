@@ -39,7 +39,7 @@ public class LowestCommonAncestor {
     public static void main(String[] args) {
         LowestCommonAncestor lca = new LowestCommonAncestor();
         TreeNode root = new TreeNode(3);
-        root.left = new TreeNode(5);pdate
+        root.left = new TreeNode(5);
         root.right = new TreeNode(1);
         root.left.left = new TreeNode(6);
         root.left.right = new TreeNode(2);
