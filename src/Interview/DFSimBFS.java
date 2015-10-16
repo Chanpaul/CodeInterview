@@ -50,7 +50,7 @@ public class DFSimBFS implements MyNode {
             return null;
         }
         if (root.value() == target) {
-            List<Integer> rval = new ArrayList<Integer>();
+            List<Integer> rval = new ArrayList<>();
             rval.add(target);
             return rval;
         }
