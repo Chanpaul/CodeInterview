@@ -21,7 +21,7 @@ public class LongestSubstringWithoutRepeat {
             else {
                 maxLen = Math.max(maxLen, i - start);
                 if (charToPosition.get(s.charAt(i)) >= start) { // start cannot get smaller
-                    start = charToPosition.get(s.charAt(i)) + 1;
+                    start = charToPosition.get(s.charAt(i)) + 1; // start from the oldest find position + 1
                 }
                 charToPosition.put(s.charAt(i), i);
             }
