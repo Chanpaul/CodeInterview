@@ -18,39 +18,37 @@ import java.util.Map;
  */
 public class Fraction2Str {
     public static String fractionToDecimal(int numerator, int denominator) {
-        if (numerator % denominator == 0) { // corner case when either = Integer.MIN_VALUE
-            long res = (long)numerator / (long)denominator;
-            return new Long(res).toString();
+        long a = (long)numerator, b = (long)denominator;
+        if (a % b == 0) { // corner case when either = Integer.MIN_VALUE
+            long res = a / b;
+            return String.valueOf(res);
         }
         boolean sign = false;
-        if ((numerator > 0 && denominator < 0 ) || (numerator < 0 && denominator > 0)) {
+        if ((a > 0 && b < 0 ) || (a < 0 && b > 0)) {
             sign = true;
         }
-        long num = Math.abs((long)numerator);
-        long denom = Math.abs((long)denominator);
+        a = Math.abs(a);
+        b = Math.abs(b);
         StringBuilder sb = new StringBuilder();
-        Map<Long, Integer> map = new HashMap<Long, Integer>();  // map(p1) = p1 / denominator
+        Map<Long, Integer> pos = new HashMap<>();  // pos(x) = the position that x occurs
         int repeatPos = -1;
         boolean repeat = false;
         if (sign) {
             sb.append('-');
         }
-        long p1 = num / denom;
+        long p1 = a / b;
         sb.append(p1);
         sb.append('.');
-        p1 = num % denom;
-        map.put(p1*10, sb.length());
-        sb.append(p1 * 10 / denom);
-        p1 = p1 * 10 % denom;
-        while (p1 * 10 % denom != 0) {
-            if (map.containsKey(p1 * 10)) {
+        p1 = a % b;
+        while (p1 * 10 % b != 0) {
+            if (pos.containsKey(p1 * 10)) {
                 repeat = true;
-                repeatPos = map.get(p1 * 10);
+                repeatPos = pos.get(p1 * 10);
                 break;
             }
-            map.put(p1*10, sb.length());
-            long p2 = p1 * 10 / denom;
-            p1 = p1 * 10 % denom;
+            pos.put(p1*10, sb.length());
+            long p2 = p1 * 10 / b;
+            p1 = p1 * 10 % b;
             sb.append(p2);
         }
         if (repeat) {
@@ -59,8 +57,8 @@ public class Fraction2Str {
             sb.append(')');
         }
         else {
-            if (p1 * 10 / denom != 0) {
-                sb.append(p1 * 10 / denom);
+            if (p1 * 10 / b != 0) {
+                sb.append(p1 * 10 / b);
             }
         }
         return sb.toString();
