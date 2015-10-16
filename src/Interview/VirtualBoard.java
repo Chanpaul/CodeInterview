@@ -8,7 +8,12 @@ import java.util.Map;
  * A question from Google interview.
  * Given an alphabet from 'A' - 'Z', and a width parameter to generate a board.
  * Starting from 'A', print all the moving direction for a given word.
+ * e.g., width = 7, word = "TUX", directions = "RRRRRDDXRXLLLLDX";
  *
+ *  A B C D E F G
+ *  H I J K L M N
+ *  O P Q R S T U
+ *  V W X Y Z
  */
 public class VirtualBoard {
     public String movingDirections(int width, String word) {
@@ -113,7 +118,7 @@ public class VirtualBoard {
 
     public static void main(String[] args) {
         VirtualBoard vb = new VirtualBoard();
-        int width = 5;
+        int width = 7;
         String word = "TUX";
         vb.printBoard(width);
         System.out.println(vb.movingDirections(width, word));
