@@ -48,7 +48,7 @@ public class VirtualBoard {
         if (26 % width != 0) length ++;
         int x1 = currPos[0], y1 = currPos[1];
         int x2 = destPos[0], y2 = destPos[1];
-        // How to know test x's first or y's first?
+        // Test x first or y first?
         if (length >= width) { // move x's first
             if (x1 < x2) {
                 for (int i = 0; i < x2 - x1; i++) {
