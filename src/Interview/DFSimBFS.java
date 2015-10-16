@@ -41,7 +41,7 @@ public class DFSimBFS implements MyNode {
             limit ++;
             res = search(1, limit, target, root);
         }
-        Collections.reverse(res);
+        Collections.reverse(res); // need to reverse the list for root to target path
         return res;
     }
 
@@ -51,13 +51,13 @@ public class DFSimBFS implements MyNode {
         }
         if (root.value() == target) {
             List<Integer> rval = new ArrayList<>();
-            rval.add(target);
+            rval.add(target); // first element in rval is the target
             return rval;
         }
         if (level < limit) {
             List<Integer> rval = search(level + 1 , limit, target, root.left());
             if (rval != null) {
-                rval.add(root.value());
+                rval.add(root.value()); // append parent values in the list
                 return rval;
             }
             rval = search(level + 1, limit, target, root.right());
