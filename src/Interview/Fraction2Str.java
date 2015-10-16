@@ -36,20 +36,18 @@ public class Fraction2Str {
         if (sign) {
             sb.append('-');
         }
-        long p1 = a / b;
-        sb.append(p1);
+        long p = a % b;
+        sb.append(a / b);
         sb.append('.');
-        p1 = a % b;
-        while (p1 * 10 % b != 0) {
-            if (pos.containsKey(p1 * 10)) {
+        while (p * 10 % b != 0) {
+            if (pos.containsKey(p * 10)) {
                 repeat = true;
-                repeatPos = pos.get(p1 * 10);
+                repeatPos = pos.get(p * 10);
                 break;
             }
-            pos.put(p1*10, sb.length());
-            long p2 = p1 * 10 / b;
-            p1 = p1 * 10 % b;
-            sb.append(p2);
+            pos.put(p*10, sb.length());
+            sb.append(p * 10 / b);
+            p = p * 10 % b;
         }
         if (repeat) { // add parenthesis
             sb.insert(repeatPos, '(');
