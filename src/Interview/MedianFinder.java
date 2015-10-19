@@ -32,12 +32,12 @@ public class MedianFinder {
     public MedianFinder() {
         Comparator<Integer> minComp = (a, b) -> {
             if (a < b) return -1;
-            else if (a == b) return 0;
+            else if (a.equals(b)) return 0;
             else return 1;
         };
         Comparator<Integer> maxComp = (a, b) -> {
             if (a > b) return -1;
-            else if (a == b) return 0;
+            else if (a.equals(b)) return 0;
             else return 1;
         };
         minHeap = new PriorityQueue<>(10, minComp);
