@@ -39,7 +39,7 @@ public class NextIntWithSameOnes {
         return Integer.valueOf(sb.toString(), 2);
     }
 
-    public static boolean allOnes(int x) {
+    /*public static boolean allOnes(int x) {
         int count = 0;
         int z = x;
         int y;
@@ -109,7 +109,7 @@ public class NextIntWithSameOnes {
                 }
             }
         }
-    }
+    } */
 
     public static void main(String[] args) {
         int x = 20;
