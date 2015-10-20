@@ -1,9 +1,44 @@
 package Interview;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Created by yongyangyu on 11/23/14.
+ * Modified on 11/19/15
+ * This problem is similar to next permutation problem
+ * except that all the digit are 0 and 1.
  */
 public class NextIntWithSameOnes {
+    public int nextInt(int x) {
+        String s = Integer.toBinaryString(x);
+        StringBuilder sb = new StringBuilder(s);
+        if (x == 0) return 0;
+        if (x == 1) return 2;
+        int i;
+        for (i = s.length() - 2; i >= 0; i --) {
+            if (s.charAt(i) < s.charAt(i+1)) break;
+        }
+        if (i > 0) {
+            sb.setCharAt(i, '1');
+            sb.setCharAt(i+1, '0');
+            List<Character> tmp = new ArrayList<>();
+            for (int j = i+1; j < sb.length(); j ++) {
+                tmp.add(sb.charAt(j));
+            }
+            Collections.sort(tmp);
+            sb.setLength(i+1);
+            for (char ch: tmp)
+                sb.append(ch);
+        }
+        else if (i == 0) {
+            sb.insert(0, '1');
+            sb.setCharAt(1, '0');
+        }
+        return Integer.valueOf(sb.toString(), 2);
+    }
+
     public static boolean allOnes(int x) {
         int count = 0;
         int z = x;
@@ -78,7 +113,7 @@ public class NextIntWithSameOnes {
 
     public static void main(String[] args) {
         int x = 20;
-        System.out.println(nextBigger(x));
+        System.out.println(new NextIntWithSameOnes().nextInt(x));
 
         System.out.println(Integer.toBinaryString(Integer.MIN_VALUE));
         System.out.println(Integer.toBinaryString(-1));
