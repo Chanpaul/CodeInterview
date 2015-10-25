@@ -26,17 +26,17 @@ public class JumpGame {
 
     // reach the last index in the minimum number of jumps
     public int jump(int[] nums) {
-        int res = 0;
+        int steps = 0;
         int maxDist = 0;
         int last = 0;
         for (int i = 0; i < nums.length; i ++) {
             if (i > last) {
                 last = maxDist;
-                res ++;
+                steps ++;
             }
             maxDist = Math.max(maxDist, nums[i] + i);
         }
-        return res;
+        return steps;
     }
 
     public static void main(String[] args) {
