@@ -37,6 +37,7 @@ public class LargestNumber {
                 }
                 i ++;
             }
+            // if one of the number is consumed, recursive compare the rest
             if (i == s1.length()) {
                 return myCompare(s1, s2.substring(i, s2.length()));
             }
