@@ -21,7 +21,7 @@ public class KSmallestSum {
 
     public static int kmaxSum(int[] A, int k) {
         int sum = 0;
-        PriorityQueue<Integer> pq = new PriorityQueue<>(k, minComp);
+        PriorityQueue<Integer> pq = new PriorityQueue<>(k, minComp); // minHeap
         if (A.length <= k) {
             for (int x : A) {
                 sum += x;
@@ -33,7 +33,7 @@ public class KSmallestSum {
                 pq.add(x);
             }
             else {
-                if (x > pq.peek()) {
+                if (x > pq.peek()) { // kick out any smaller element than current
                     pq.poll();
                     pq.add(x);
                 }
@@ -47,7 +47,7 @@ public class KSmallestSum {
 
     public static int kminSum(int[] A, int k) {
         int sum = 0;
-        PriorityQueue<Integer> pq = new PriorityQueue<>(k, maxComp);
+        PriorityQueue<Integer> pq = new PriorityQueue<>(k, maxComp); // maxHeap
         if (A.length <= k) {
             for (int x : A) {
                 sum += x;
@@ -59,7 +59,7 @@ public class KSmallestSum {
                 pq.add(x);
             }
             else {
-                if (x < pq.peek()) {
+                if (x < pq.peek()) { // kick out any larger element than current
                     pq.poll();
                     pq.add(x);
                 }
