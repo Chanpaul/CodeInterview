@@ -66,6 +66,7 @@ public class KSum {
                     result.add(elem);
                     l ++;
                     r --;
+                    // step over the duplicates for speedups
                     while (l < r && nums[l] == nums[l - 1]) {
                         l ++;
                     }
