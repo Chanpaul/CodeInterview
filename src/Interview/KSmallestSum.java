@@ -7,24 +7,21 @@ import java.util.PriorityQueue;
  * Created by yongyangyu on 1/11/15.
  */
 public class KSmallestSum {
-    static class maxComparator implements Comparator<Integer> {
-        @Override
-        public int compare(Integer x, Integer y) {
-            if (x > y) {
-                return -1;
-            }
-            else if (x < y) {
-                return 1;
-            }
-            else {
-                return 0;
-            }
-        }
-    }
+    private static Comparator<Integer> minComp = (x, y) -> {
+        if (x < y) return -1;
+        else if (x > y) return 1;
+        else return 0;
+    };
+
+    private static Comparator<Integer> maxComp = (x, y) -> {
+        if (x > y) return -1;
+        else if (x < y) return 1;
+        else return 0;
+    };
 
     public static int kmaxSum(int[] A, int k) {
         int sum = 0;
-        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        PriorityQueue<Integer> pq = new PriorityQueue<>(k, minComp);
         if (A.length <= k) {
             for (int x : A) {
                 sum += x;
@@ -50,7 +47,7 @@ public class KSmallestSum {
 
     public static int kminSum(int[] A, int k) {
         int sum = 0;
-        PriorityQueue<Integer> pq = new PriorityQueue<Integer>(k, new maxComparator());
+        PriorityQueue<Integer> pq = new PriorityQueue<>(k, maxComp);
         if (A.length <= k) {
             for (int x : A) {
                 sum += x;
