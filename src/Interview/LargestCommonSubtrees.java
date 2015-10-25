@@ -9,7 +9,7 @@ import java.util.Set;
 /**
  * Created by yongyangyu on 1/10/15.
  */
-public class LargestCommonSubtress {
+public class LargestCommonSubtrees {
     static class TreeNode {
         int val;
         List<TreeNode> subNodes;
@@ -21,6 +21,10 @@ public class LargestCommonSubtress {
         }
     }
 
+    /*
+     * @param root -- root of the tree
+     * @param map -- mapping from hash value to all the treenode with that value
+     */
     public static void postOrder(TreeNode root, Map<Integer, List<TreeNode>> map) {
         if (root.subNodes == null) {
             root.hashVal = 1;
@@ -30,7 +34,7 @@ public class LargestCommonSubtress {
                 map.put(1, value);
             }
             else {
-                List<TreeNode> value = new ArrayList<TreeNode>();
+                List<TreeNode> value = new ArrayList<>();
                 value.add(root);
                 map.put(1, value);
             }
@@ -38,7 +42,7 @@ public class LargestCommonSubtress {
             return;
         }
         else {
-            int hash = 0;
+            int hash = 1;
             hash = hash << root.subNodes.size();
             for (TreeNode x : root.subNodes) {
                 postOrder(x, map);
@@ -53,7 +57,7 @@ public class LargestCommonSubtress {
                 map.put(hash, value);
             }
             else {
-                List<TreeNode> value = new ArrayList<TreeNode>();
+                List<TreeNode> value = new ArrayList<>();
                 value.add(root);
                 map.put(hash, value);
             }
@@ -73,15 +77,15 @@ public class LargestCommonSubtress {
          *           \         \
          *            7         10
          * */
-        TreeNode r1 = new TreeNode(1, new ArrayList<TreeNode>());
-        TreeNode r2 = new TreeNode(2, new ArrayList<TreeNode>());
+        TreeNode r1 = new TreeNode(1, new ArrayList<>());
+        TreeNode r2 = new TreeNode(2, new ArrayList<>());
         TreeNode r3 = new TreeNode(3, null);
-        TreeNode r4 = new TreeNode(4, new ArrayList<TreeNode>());
+        TreeNode r4 = new TreeNode(4, new ArrayList<>());
         TreeNode r5 = new TreeNode(5, null);
-        TreeNode r6 = new TreeNode(6, new ArrayList<TreeNode>());
+        TreeNode r6 = new TreeNode(6, new ArrayList<>());
         TreeNode r7 = new TreeNode(7, null);
         TreeNode r8 = new TreeNode(8, null);
-        TreeNode r9 = new TreeNode(9, new ArrayList<TreeNode>());
+        TreeNode r9 = new TreeNode(9, new ArrayList<>());
         TreeNode r10 = new TreeNode(10, null);
 
         r1.subNodes.add(r2);
@@ -98,7 +102,7 @@ public class LargestCommonSubtress {
 
         r9.subNodes.add(r10);
 
-        Map<Integer, List<TreeNode>> map = new HashMap<Integer, List<TreeNode>>();
+        Map<Integer, List<TreeNode>> map = new HashMap<>();
 
         postOrder(r1, map);
         Set<Integer> keys = map.keySet();
