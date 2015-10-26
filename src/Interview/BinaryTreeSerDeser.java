@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class BinaryTreeSerDeser {
     public String serialize(TreeNode root) {
-        StringBuffer data = new StringBuffer();
+        StringBuilder data = new StringBuilder();
         List<TreeNode> q = new ArrayList<>();
         q.add(root);
         while (!q.isEmpty()) {
@@ -37,7 +37,7 @@ public class BinaryTreeSerDeser {
             }
             else {
                 if (data.length() == 0) data.append(curr.val);
-                else data.append("," + curr.val);
+                else data.append(",").append(curr.val);
                 q.add(curr.left);
                 q.add(curr.right);
             }
