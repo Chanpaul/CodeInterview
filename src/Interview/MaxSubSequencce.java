@@ -9,7 +9,8 @@ public class MaxSubSequencce {
         for (int i = 0; i < dp.length; i ++) {
             dp[i][i] = 1;
         }
-        // scan from the diagnal to the up-right corner
+        // scan from the diagonal to the up-right corner
+        // only need to fill in half of the square for j >= i
         int len = dp.length;
         for (int c = 1; c < len; c ++) { // distance from diag to the corner
             for (int i = 0; i < len - c; i ++) { // row index
