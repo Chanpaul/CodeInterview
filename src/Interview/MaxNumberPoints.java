@@ -15,9 +15,9 @@ public class MaxNumberPoints {
         if (points.length == 1) {
             return 1;
         }
-        Map<Double, Integer> map = new HashMap<Double, Integer>();
+        Map<Double, Integer> map = new HashMap<>(); // slope -> number of points; NOTE: line parallel to y-axis
         int maxNum = 0;
-        for (int i = 0; i < points.length; i ++) {
+        for (int i = 0; i < points.length; i ++) { // choose a point and compute all the lines thru this one
             map.clear();
             // set a default value
             map.put((double)Integer.MIN_VALUE, 0);
@@ -26,11 +26,12 @@ public class MaxNumberPoints {
                 if (j == i) {
                     continue;
                 }
+                // duplicate points
                 if (points[i].x == points[j].x && points[i].y == points[j].y) {
                     dup ++;
                     continue;
                 }
-                double k = points[i].x == points[j].y ? (double)Integer.MAX_VALUE :
+                double k = points[i].x == points[j].x ? (double)Integer.MAX_VALUE :
                         (double)(points[i].y - points[j].y) / (points[i].x - points[j].x);
                 if (map.containsKey(k)) {
                     map.put(k, map.get(k) + 1);
