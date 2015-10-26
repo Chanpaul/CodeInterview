@@ -5,8 +5,8 @@ package Interview;
  * Refactored to better compute powers of the base.
  */
 public class RabinKarp {
-    static final int base = 26;
-    static final int mod = 997;
+    static final int base = 26; // base for multiplication
+    static final int mod = 997; // a prime number for hashing
     public static int strStr(String haystack, String needle) {
         if (needle.length() > haystack.length()) return -1;  // needle cannot be a substring
         int hayHash = 0, nhash = 0;
