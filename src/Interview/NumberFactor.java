@@ -2,6 +2,7 @@ package Interview;
 
 /**
  * Created by yongyangyu on 1/11/15.
+ * Given a positive integer, print all the multiplication factors of the number.
  */
 public class NumberFactor {
     public static void PrintFactors(int num) {
@@ -25,6 +26,6 @@ public class NumberFactor {
     }
 
     public static void main(String[] args) {
-        PrintFactors(64);
+        PrintFactors(72);
     }
 }
