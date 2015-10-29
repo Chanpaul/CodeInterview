@@ -6,10 +6,10 @@ import java.util.List;
 
 /**
  * Created by yongyangyu on 10/10/15.
- * Given an array of A of n numbers, find a longest subsequence such that
- * it is nondecreasing.
+ * Given an array of A of n numbers, find the length of a longest subsequence such that
+ * it is increasing.
  */
-public class LongestNondecreasingSubseq {
+public class LongestIncreasingSubseq {
     List<Integer> longestSeq(int[] nums) {
         int[] len = new int[nums.length];
         int[] parent = new int[nums.length];
@@ -43,7 +43,7 @@ public class LongestNondecreasingSubseq {
 
     public static void main(String[] args) {
         int[] nums = {0,8,4,12,2,10,6,14,1,9};
-        List<Integer> res = new LongestNondecreasingSubseq().longestSeq(nums);
+        List<Integer> res = new LongestIncreasingSubseq().longestSeq(nums);
         System.out.println(Arrays.toString(res.toArray()));
     }
 }
