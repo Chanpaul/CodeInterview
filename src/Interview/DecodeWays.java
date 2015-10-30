@@ -17,55 +17,63 @@ import java.util.*;
  * The number of ways decoding "12" is 2.
  */
 public class DecodeWays {
+    public int ways(String s) {
+        if (s == null || s.length() == 0) return 0;
+        Map<String, String> numToAlphaBet = new HashMap<>();
+        for (int i = 0; i < 26; i ++) {
+            numToAlphaBet.put((i+1) + "", (char) ('A'+i) + "");
+        }
+        int[] dp = new int[s.length()+1];
+        dp[0] = 1;
+        for (int i = 1; i < dp.length; i ++) {
+            if (numToAlphaBet.containsKey(s.charAt(i-1) + "")) {
+                dp[i] += dp[i-1];
+            }
+            if (i >= 2 && numToAlphaBet.containsKey(s.substring(i-2, i))) {
+                dp[i] += dp[i-2];
+            }
+        }
+        return dp[dp.length-1];
+    }
+
     /*
      * return all the possible decode patterns wrapped in a list
      */
-    public static List<String> decode(String s) {
+    public List<String> decode(String s) {
         if (s == null || s.length() == 0) {
             return null;
         }
         Map<String, String> map = new HashMap<>();
-        for (int i = 1; i <= 26; i ++) {
-            map.put(String.valueOf(i), String.valueOf((char)('A' + (i-1))));
+        for (int i = 0; i < 26; i ++) {
+            map.put((i+1) + "", (char) ('A' + i) + "");
         }
         List<List<String>> dp = new ArrayList<>();
-        for (int i = 0; i < s.length(); i ++) {
+        for (int i = 0; i < s.length()+1; i ++) {
             dp.add(new ArrayList<>());
         }
-        if (map.containsKey(String.valueOf(s.charAt(0)))) {
-            dp.get(0).add(map.get(String.valueOf(s.charAt(0))));
-        }
-        for (int i = 1; i < s.length(); i ++) {
-            if (map.containsKey(s.substring(i, i + 1))) {
-                String curr = map.get(s.substring(i, i + 1));
-                if (dp.get(i-1).size() > 0) {
-                    List<String> prev = dp.get(i-1);
-                    for (int j = 0; j < prev.size(); j ++) {
-                        dp.get(i).add(prev.get(j) + curr);
-                    }
+        dp.get(0).add("");
+        for (int i = 1; i < dp.size(); i ++) {
+            if (map.containsKey(s.charAt(i-1) + "")) {
+                String curr = map.get(s.charAt(i-1)+"");
+                for (String x: dp.get(i-1)) {
+                    dp.get(i).add(x+curr);
                 }
             }
-
-            if (map.containsKey(s.substring(i-1, i + 1))) {
-                String curr = map.get(s.substring(i-1, i + 1));
-                if (i >= 2 && dp.get(i-2).size() > 0) {
-                    List<String> prev2 = dp.get(i-2);
-                    for (int j = 0; j < prev2.size(); j ++) {
-                        dp.get(i).add(prev2.get(j) + curr);
-                    }
-                }
-                else if (i - 2 <= 0) {
-                    dp.get(i).add(curr);
+            if (i >= 2 && map.containsKey(s.substring(i-2, i))) {
+                String curr = map.get(s.substring(i-2, i));
+                for (String x: dp.get(i-2)) {
+                    dp.get(i).add(x+curr);
                 }
             }
-
         }
         return dp.get(dp.size()-1);
     }
 
     public static void main(String[] args) {
-        String s = "5223";
-        List<String> res = decode(s);
+        String s = "1111";
+        DecodeWays dways = new DecodeWays();
+        List<String> res = dways.decode(s);
         System.out.println(Arrays.toString(res.toArray()));
+        System.out.println(dways.ways(s));
     }
 }
