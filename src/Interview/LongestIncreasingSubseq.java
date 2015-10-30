@@ -29,7 +29,7 @@ public class LongestIncreasingSubseq {
         }
         return len;
     }
-
+    // find the index where the previous element is smaller than target
     private int binSearchLarger(int left, int right, int target, int[] tail) {
         while (right > left + 1) {
             int mid = left + (right - left) / 2;
