@@ -10,6 +10,35 @@ import java.util.List;
  * it is increasing.
  */
 public class LongestIncreasingSubseq {
+    // an O(nlogn) algorithm for computing the length
+    public int length(int[] nums) {
+        if (nums == null) return 0;
+        int[] tail = new int[nums.length];
+        int len = 1;
+        tail[0] = nums[0];
+        for (int i = 1; i < nums.length; i ++) {
+            if (nums[i] < tail[0]) {
+                tail[0] = nums[i];
+            }
+            else if (nums[i] > tail[len - 1]) {
+                tail[len ++] = nums[i];
+            }
+            else {
+                tail[binSearchLarger(0, len-1, nums[i], tail)] = nums[i];
+            }
+        }
+        return len;
+    }
+
+    private int binSearchLarger(int left, int right, int target, int[] tail) {
+        while (right > left + 1) {
+            int mid = left + (right - left) / 2;
+            if (tail[mid] > target) right = mid;
+            else left = mid;
+        }
+        return right;
+    }
+
     List<Integer> longestSeq(int[] nums) {
         int[] len = new int[nums.length];
         int[] parent = new int[nums.length];
@@ -42,8 +71,10 @@ public class LongestIncreasingSubseq {
     }
 
     public static void main(String[] args) {
-        int[] nums = {0,8,4,12,2,10,6,14,1,9};
-        List<Integer> res = new LongestIncreasingSubseq().longestSeq(nums);
+        int[] nums = {1, 10, 2, 9, 3, 8, 4, 7, 5, 6};
+        LongestIncreasingSubseq lis = new LongestIncreasingSubseq();
+        List<Integer> res = lis.longestSeq(nums);
         System.out.println(Arrays.toString(res.toArray()));
+        System.out.println(lis.length(nums));
     }
 }
