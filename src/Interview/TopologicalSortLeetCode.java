@@ -5,11 +5,11 @@ import java.util.*;
 /**
  * Created by yongyangyu on 5/11/15.
  */
-public class TopologicalSort {
+public class TopologicalSortLeetCode {
     public static boolean canSort(int numCourses, int[][] prerequisites) {
-        Map<Integer, List<Integer>> courses = new HashMap<Integer, List<Integer>>();
-        Map<Integer, Integer> depend = new HashMap<Integer, Integer>();
-        Set<Integer> candid = new HashSet<Integer>();
+        Map<Integer, List<Integer>> courses = new HashMap<>();
+        Map<Integer, Integer> depend = new HashMap<>();
+        Set<Integer> candid = new HashSet<>();
         for (int i = 0; i < numCourses; i ++) {
             depend.put(i, 0);
             candid.add(i);
@@ -19,7 +19,7 @@ public class TopologicalSort {
             depend.put(tuple[0], depend.get(tuple[0]) + 1);
             candid.remove(tuple[0]);
             if (!courses.containsKey(tuple[1])) {
-                List<Integer> val = new ArrayList<Integer>();
+                List<Integer> val = new ArrayList<>();
                 val.add(tuple[0]);
                 courses.put(tuple[1], val);
             }
@@ -30,7 +30,7 @@ public class TopologicalSort {
             }
         }
         // q is the list of courses with no dependency
-        List<Integer> q = new ArrayList<Integer>();
+        List<Integer> q = new ArrayList<>();
         Iterator<Integer> iter = candid.iterator();
         while(iter.hasNext()) {
             int tmp = iter.next();
@@ -60,10 +60,10 @@ public class TopologicalSort {
     }
 
     public static int[] sortOrder(int numCourses, int[][] prerequisites) {
-        Map<Integer, List<Integer>> courses = new HashMap<Integer, List<Integer>>();
-        Map<Integer, Integer> depend = new HashMap<Integer, Integer>();
-        Set<Integer> candid = new HashSet<Integer>();
-        List<Integer> order = new LinkedList<Integer>();
+        Map<Integer, List<Integer>> courses = new HashMap<>();
+        Map<Integer, Integer> depend = new HashMap<>();
+        Set<Integer> candid = new HashSet<>();
+        List<Integer> order = new LinkedList<>();
         for (int i = 0; i < numCourses; i ++) {
             depend.put(i, 0);
             candid.add(i);
@@ -73,7 +73,7 @@ public class TopologicalSort {
             depend.put(tuple[0], depend.get(tuple[0]) + 1);
             candid.remove(tuple[0]);
             if (!courses.containsKey(tuple[1])) {
-                List<Integer> val = new ArrayList<Integer>();
+                List<Integer> val = new ArrayList<>();
                 val.add(tuple[0]);
                 courses.put(tuple[1], val);
             }
@@ -84,7 +84,7 @@ public class TopologicalSort {
             }
         }
         // q is the list of courses with no dependency
-        List<Integer> q = new ArrayList<Integer>();
+        List<Integer> q = new ArrayList<>();
         Iterator<Integer> iter = candid.iterator();
         while(iter.hasNext()) {
             int tmp = iter.next();
