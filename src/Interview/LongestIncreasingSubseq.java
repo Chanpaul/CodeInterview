@@ -41,9 +41,26 @@ public class LongestIncreasingSubseq {
         return right;
     }
 
+    public int lengthDP(int[] nums) {
+        if (nums == null || nums.length == 0) return 0;
+        int[] len = new int[nums.length];
+        len[0] = 1;
+        int max = 0;
+        for (int i = 1; i < len.length; i ++) {
+            for (int j = 0; j < i; j ++) {
+                if (nums[i] > nums[j]) {
+                    len[i] = Math.max(len[i], len[j] + 1);
+                }
+            }
+            max = Math.max(max, len[i]);
+        }
+        return max;
+    }
+
     public static void main(String[] args) {
         int[] nums = {3,5,6,2,5,4,19,5,6,7,12};
         LongestIncreasingSubseq lis = new LongestIncreasingSubseq();
         System.out.println(lis.length(nums));
+        System.out.println(lis.lengthDP(nums));
     }
 }
