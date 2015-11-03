@@ -1,5 +1,7 @@
 package Interview;
 
+import java.util.Arrays;
+
 /**
  * Created by yongyangyu on 10/10/15.
  * Given an array of A of n numbers, find the length of a longest subsequence such that
@@ -41,26 +43,44 @@ public class LongestIncreasingSubseq {
         return right;
     }
 
-    public int lengthDP(int[] nums) {
-        if (nums == null || nums.length == 0) return 0;
+    public int[] lengthDP(int[] nums) {
+        if (nums == null || nums.length == 0) return null;
         int[] len = new int[nums.length];
-        len[0] = 1;
+        int[] pi = new int[nums.length]; // parent pointer
+        int[] seq = null;
+        len[0] = 1; pi[0] = 0;
         int max = 0;
         for (int i = 1; i < len.length; i ++) {
             for (int j = 0; j < i; j ++) {
                 if (nums[i] > nums[j]) {
                     len[i] = Math.max(len[i], len[j] + 1);
+                    if (len[i] == len[j] + 1) pi[i] = j;
+                }
+                if (len[i] == 0) {
+                    len[i] = 1;
+                    pi[i] = i;
                 }
             }
             max = Math.max(max, len[i]);
         }
-        return max;
+        for (int i = 0; i < len.length; i ++) {
+            if (max == len[i]) {
+                seq = new int[max];
+                int j = i;
+                for (int k = max-1; k >= 0; k --) {
+                    seq[k] = nums[j];
+                    j = pi[j];
+                }
+                break;
+            }
+        }
+        return seq;
     }
 
     public static void main(String[] args) {
         int[] nums = {3,5,6,2,5,4,19,5,6,7,12};
         LongestIncreasingSubseq lis = new LongestIncreasingSubseq();
         System.out.println(lis.length(nums));
-        System.out.println(lis.lengthDP(nums));
+        System.out.println(Arrays.toString(lis.lengthDP(nums)));
     }
 }
