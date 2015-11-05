@@ -16,14 +16,17 @@ import java.util.Arrays;
  */
 public class MoveZeroes {
     public void move(int[] nums) {
-        int zidx = 0;
-        for (int i = 0; i < nums.length; i ++) {
-            if (nums[i] != 0) {
-                int tmp = nums[zidx];
-                nums[zidx++] = nums[i];
-                nums[i] = tmp;
-            }
+        int i = 0, j = 0;
+        while (j < nums.length) {
+            if (nums[j] == 0) j ++;
+            else swap(nums, i ++, j ++);
         }
+    }
+
+    private void swap(int[] nums, int i, int j) {
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
     }
 
     public static void main(String[] args) {
