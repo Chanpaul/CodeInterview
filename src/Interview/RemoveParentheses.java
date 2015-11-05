@@ -20,7 +20,7 @@ public class RemoveParentheses {
         if (s == null) return res;
         // BFS for each possible ( and )
         List<String> q = new ArrayList<>();
-        Set<String> tmp = new HashSet<>();
+        Set<String> tmp = new HashSet<>(); // use set for possible duplicate substrings
         q.add(s);
         while (!q.isEmpty()) {
             String curr = q.remove(0);
