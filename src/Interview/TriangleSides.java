@@ -40,7 +40,7 @@ public class TriangleSides {
     }
 
     public static void main(String[] args) {
-        int[] segements = {10,2,7add};
+        int[] segements = {10,2,7};
         TriangleSides ts = new TriangleSides();
         System.out.println(Arrays.toString(ts.getTriangleSides(segements)));
     }
