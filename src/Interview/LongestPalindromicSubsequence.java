@@ -3,7 +3,7 @@ package Interview;
 /**
  * Created by yongyangyu on 11/18/14.
  */
-public class MaxSubSequencce {
+public class LongestPalindromicSubsequence {
     public static int maxLengthPalindrome(int[] values) {
         int[][] dp = new int[values.length][values.length];
         for (int i = 0; i < dp.length; i ++) {
