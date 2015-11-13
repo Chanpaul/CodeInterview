@@ -51,6 +51,23 @@ public class BinSearch {
         return hi;
     }
 
+    public static int search_last(int[] x, int target) {
+        int lo = -1, hi = x.length;
+        while (lo + 1 != hi) {
+            int mid = lo + (hi - lo) / 2;
+            if (x[mid] > target) {
+                hi = mid;
+            }
+            else {
+                lo = mid;
+            }
+        }
+        if (lo < 0 || x[lo] != target) {
+            return -1;
+        }
+        return lo;
+    }
+
     // This optimized version of binary search utilized techniques,
     // such as loop unrolling to hack the performance of binary search on a array of 1000 elements.
     public static int search1000(int[] x, int target) {
@@ -87,5 +104,6 @@ public class BinSearch {
             x1000[i] = i + 1;
         }
         System.out.println(search1000(x1000, 567));
+        System.out.println(search_last(x, 1));
     }
 }
