@@ -21,7 +21,6 @@ import java.util.List;
  */
 public class BSTKthLargest {
     public TreeNode largest(TreeNode root, int k) {
-        if (root == null) return null;
         List<TreeNode> res = new ArrayList<>();
         traverse_large(root, new int[]{0}, k, res);
         if (res.isEmpty()) return null;
@@ -29,23 +28,17 @@ public class BSTKthLargest {
     }
 
     private void traverse_large(TreeNode root, int[] curr, int k, List<TreeNode> res) {
-        if (root != null && root.left == null && root.right == null) {
-            curr[0] ++;
-            if (curr[0] == k) res.add(root);
+        if (root == null) return;
+        traverse_large(root.right, curr, k, res);
+        curr[0] ++;
+        if (curr[0] == k) {
+            res.add(root);
             return;
         }
-        if (root.right != null) {
-            traverse_large(root.right, curr, k, res);
-        }
-        curr[0] ++;
-        if (curr[0] == k) res.add(root);
-        if (root.left != null) {
-            traverse_large(root.left, curr, k, res);
-        }
+        traverse_large(root.left, curr, k, res);
     }
 
     public TreeNode smallest(TreeNode root, int k) {
-        if (root == null) return null;
         List<TreeNode> res = new ArrayList<>();
         traverse_small(root, new int[]{0}, k, res);
         if (res.isEmpty()) return null;
@@ -53,19 +46,14 @@ public class BSTKthLargest {
     }
 
     private void traverse_small(TreeNode root, int[] curr, int k, List<TreeNode> res) {
-        if (root != null && root.left == null && root.right == null) {
-            curr[0] ++;
-            if (curr[0] == k) res.add(root);
+        if (root == null) return;
+        traverse_small(root.left, curr, k, res);
+        curr[0] ++;
+        if (curr[0] == k) {
+            res.add(root);
             return;
         }
-        if (root.left != null) {
-            traverse_small(root.left, curr, k, res);
-        }
-        curr[0] ++;
-        if (curr[0] == k) res.add(root);
-        if (root.right != null) {
-            traverse_small(root.right, curr, k, res);
-        }
+        traverse_small(root.right, curr, k, res);
     }
 
     public static void main(String[] args) {
