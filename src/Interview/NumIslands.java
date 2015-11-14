@@ -39,11 +39,13 @@ public class NumIslands {
         public int getY() {
             return p2;
         }
-        @Override public int hashCode() {
+        @Override
+        public int hashCode() {
             return p1 + p2;
         }
 
-        @Override public boolean equals(Object o) {
+        @Override
+        public boolean equals(Object o) {
             if (o instanceof Tuple) {
                 if (this == (Tuple)o) {
                     return true;
@@ -63,18 +65,17 @@ public class NumIslands {
         if (grid == null || grid.length == 0) {
             return 0;
         }
-        Map<Tuple, Boolean> pos = new HashMap<Tuple, Boolean>();
+        Set<Tuple> candid = new HashSet<>();
         int maxx = grid.length;
         int maxy = grid[0].length;
         for (int i = 0; i < grid.length; i ++) {
             for (int j = 0; j < grid[0].length; j ++) {
                 if (grid[i][j] == '1') {
-                    pos.put(new Tuple(i, j), true);
+                    candid.add(new Tuple(i, j));
                 }
             }
         }
         int num = 0;
-        Set<Tuple> candid = pos.keySet();
         while (candid.size() != 0) {
             Tuple random = null;
             Iterator<Tuple> iter = candid.iterator();
@@ -82,7 +83,7 @@ public class NumIslands {
                 random = iter.next();
                 candid.remove(random);
             }
-            List<Tuple> q = new LinkedList<Tuple>();
+            List<Tuple> q = new LinkedList<>();
             q.add(random);
             while (!q.isEmpty()) {
                 Tuple head = q.remove(0);
@@ -100,7 +101,7 @@ public class NumIslands {
 
     }
     private static List<Tuple> getNeighors(int x, int y, int maxx, int maxy) {
-        List<Tuple> res = new ArrayList<Tuple>();
+        List<Tuple> res = new ArrayList<>();
         if (x + 1 < maxx) {
             // x+ 1 is valid
             Tuple curr = new Tuple(x+1, y);
