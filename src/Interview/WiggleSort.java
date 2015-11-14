@@ -6,8 +6,13 @@ import java.util.List;
 
 /**
  * Created by yongyangyu on 11/24/14.
+ * Write a function to convert the array into alternate increasing decreasing numbers:
+ *
+ * a[0] <= a[1] >= a[2] <= a[3] >=...
+ *
+ * Note: You should solve it in place and one pass.
  */
-public class WaveArray {
+public class WiggleSort {
     public static void swap(List<Integer> A, int i, int j) {
         int tmp = A.get(i);
         A.set(i, A.get(j));
