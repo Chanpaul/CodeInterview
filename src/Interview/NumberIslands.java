@@ -25,7 +25,7 @@ import java.util.*;
  * Answer: 3
  *
  */
-public class NumIslands {
+public class NumberIslands {
     public static class Tuple {
         private int p1;
         private int p2;
