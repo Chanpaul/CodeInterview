@@ -22,6 +22,7 @@ public class AdditiveNumber {
         int n = num.length();
         for (int i = 1; i <= n/2; i ++) {
             Long x1 = Long.parseLong(num.substring(0, i)); // look for the 1st number
+            // the 3rd number should be of length at least Math.max(i,j)
             for (int j = 1; Math.max(i, j) <= n-i-j; j++) {
                 if (num.charAt(i) == '0' && j > 1) break;
                 Long x2 = Long.parseLong(num.substring(i, i+j)); // look for the 2nd number
