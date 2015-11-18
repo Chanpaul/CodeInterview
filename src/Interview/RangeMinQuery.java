@@ -5,6 +5,7 @@ package Interview;
  * We have an array arr[0 . . . n-1]. We should be able to efficiently find the
  * minimum value from index qs (query start) to qe (query end) where 0 <= qs <= qe <= n-1.
  * The array is static (elements are not deleted and inserted during the series of queries).
+ * Problem comes from geeksforgeeks.com.
  *
  * This problem can be viewed as an application of the segment trees from the range sum query
  * mutable problem.
