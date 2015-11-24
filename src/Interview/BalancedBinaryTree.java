@@ -16,9 +16,6 @@ public class BalancedBinaryTree {
     private int depth(TreeNode root, boolean[] balanced) {
         if (!balanced[0]) return -1;
         if (root == null) return 0;
-        if (root.left == null && root.right == null) {
-            return 1;
-        }
         int leftDepth = depth(root.left, balanced);
         int rightDepth = depth(root.right, balanced);
         if (Math.abs(leftDepth - rightDepth) > 1) {
