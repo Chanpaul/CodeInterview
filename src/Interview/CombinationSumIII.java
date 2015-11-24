@@ -17,7 +17,7 @@ import java.util.List;
  *  Output:
  *      [[1,2,6], [1,3,5], [2,3,4]]
  */
-public class CombineSumIII {
+public class CombinationSumIII {
     public static List<List<Integer>> combinationSum3(int k, int n) {
         return combine(k, n, 1);
     }
