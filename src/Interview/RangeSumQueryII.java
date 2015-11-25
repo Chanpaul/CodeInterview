@@ -21,6 +21,11 @@ package Interview;
  * You may assume that the matrix does not change.
  * There are many calls to sumRegion function.
  * You may assume that row1 ≤ row2 and col1 ≤ col2.
+ *
+ * Using inclusive-exclusive principle for calculating the summation.
+ * sum[i][j] means the summation from matrix[0][0] all the way to matrix[i][j].
+ * Dimension of sum is larger than that of matrix for easier processing for corner
+ * case, such as one of the given point is (0,0).
  */
 public class RangeSumQueryII {
     private int sum[][] = null;
