@@ -1,7 +1,5 @@
 package Interview;
 
-import java.util.Arrays;
-
 /**
  * Created by yongyangyu on 11/18/15.
  * Given an integer array nums, find the sum of the elements between indices i and j (i ≤ j), inclusive.
@@ -27,64 +25,85 @@ import java.util.Arrays;
  * for storing the segment tree, which is similar to that of binary search tree array representation.
  */
 public class RangeSumQueryMutable {
-    int[] segTree;
-    int[] nums;
+    class SegmentTreeNode {
+        int start, end;
+        SegmentTreeNode left, right;
+        int sum;
 
-    public RangeSumQueryMutable(int[] nums) {
-        int n = nums.length;
-        this.nums = nums;
-        if (n == 0) return;
-        int h = (int)(Math.ceil(Math.log(n) / Math.log(2)));
-        int size = (int)Math.pow(2, h+1) - 1; // the binary tree maybe incomplete
-        segTree = new int[size]; // assign enough memory for the complete tree to hold all possible nodes
-        buildSegmentTree(nums, 0, n-1, 0);
+        public SegmentTreeNode(int start, int end) {
+            this.start = start;
+            this.end = end;
+            left = null;
+            right = null;
+            sum = 0;
+        }
     }
 
-    private void buildSegmentTree(int[] nums, int start, int end, int treePos) {
-        if (start == end) { // base case for single element
-            segTree[treePos] = nums[start];
-            return;
+    private SegmentTreeNode buildTree(int[] nums, int start, int end) {
+        if (start > end) return null;
+        SegmentTreeNode res = new SegmentTreeNode(start, end);
+        if (start == end) {
+            res.sum = nums[start];
         }
-        int mid = start + (end-start)/2;
-        buildSegmentTree(nums, start, mid, treePos*2+1);
-        buildSegmentTree(nums, mid+1, end, treePos*2+2);
-        segTree[treePos] = segTree[treePos*2+1] + segTree[treePos*2+2]; // set current position the sum of subtrees
+        else {
+            int mid = start + (end - start) / 2;
+            res.left = buildTree(nums, start, mid);
+            res.right = buildTree(nums, mid+1, end);
+            res.sum = res.left.sum + res.right.sum;
+        }
+        return res;
+    }
+
+    private void update(SegmentTreeNode root, int pos, int val) {
+        if (root.start == root.end) root.sum = val;
+        else {
+            int mid = root.start + (root.end - root.start) / 2;
+            if (pos <= mid) {
+                update(root.left, pos, val);
+            }
+            else {
+                update(root.right, pos, val);
+            }
+            root.sum = root.left.sum + root.right.sum;
+        }
+    }
+
+    private int sumRange(SegmentTreeNode root, int start, int end) {
+        if (root.start == start && root.end == end) {
+            return root.sum;
+        }
+        else {
+            int mid = root.start + (root.end - root.start) / 2;
+            if (end <= mid) { // range in 2nd half
+                return sumRange(root.left, start, end);
+            }
+            else if (start >= mid + 1) { // range in 1st  half
+                return sumRange(root.right, start, end);
+            }
+            else { // range across the 2 halves
+                return sumRange(root.left, start, mid) +
+                        sumRange(root.right, mid+1, end);
+            }
+        }
+    }
+    SegmentTreeNode root = null;
+
+    public RangeSumQueryMutable(int[] nums) {
+        root = buildTree(nums, 0, nums.length-1);
     }
 
     void update(int i, int val) {
-        int diff = val - nums[i];
-        nums[i] = val;
-        updateValue(0, nums.length-1, diff, i, 0); // update along the path to root
-    }
-
-    private void updateValue(int seg_start, int seg_end, int diff, int qi, int si) {
-        if (qi < seg_start || qi > seg_end) return; // update position not in the range
-        segTree[si] += diff;
-        if (seg_start != seg_end) { // for internal nodes
-            int mid = seg_start + (seg_end-seg_start) / 2;
-            updateValue(seg_start, mid, diff, qi, 2*si + 1);
-            updateValue(mid+1, seg_end, diff, qi, 2*si + 2);
-        }
+        update(root, i, val);
     }
 
     public int sumRange(int i, int j) {
-        return getSum(0, nums.length-1, i, j, 0);
-    }
-
-    private int getSum(int seg_start, int seg_end, int qstart, int qend, int si) {
-        if (qstart <= seg_start && qend >= seg_end) return segTree[si]; // if [qstart, qend] is within [seg_start, seg_end]
-        if (qend < seg_start || qstart > seg_end) return 0; // otherwise
-        int mid = seg_start + (seg_end-seg_start)/2;
-        return getSum(seg_start, mid, qstart, qend, si*2 + 1) +
-                getSum(mid+1, seg_end, qstart, qend, si*2 + 2);
+        return sumRange(root, i, j);
     }
 
     public static void main(String[] args) {
         int[] nums = {9, -8};
         RangeSumQueryMutable rsqm = new RangeSumQueryMutable(nums);
-        System.out.println(Arrays.toString(rsqm.segTree));
         rsqm.update(0, 3);
-        System.out.println(Arrays.toString(rsqm.segTree));
         System.out.println(rsqm.sumRange(1,1));
 
     }
