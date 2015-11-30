@@ -22,11 +22,11 @@ package Interview;
  * nums = [3,1,5,8] --> [3,5,8] -->   [3,8]   -->  [8]  --> []
  * coins =  3*1*5      +  3*5*8    +  1*3*8      + 1*8*1   = 167
  */
-public class BurstBallons {
+public class BurstBalloons {
     public int maxCoins(int[] nums) {
         int n = 1;
         int[] arr = new int[nums.length+2];
-        for (int x: nums) arr[n++] = x;
+        for (int x: nums) if (x > 0) arr[n++] = x; // burst all the zero balloons
         arr[0] = arr[n++] = 1;
         int[][] memo = new int[n][n];
         return burst(memo, arr, 0, n-1);
@@ -46,7 +46,7 @@ public class BurstBallons {
     public int maxCoins2(int[] nums) {
         int[] arr = new int[nums.length+2];
         int n = 1;
-        for (int x: nums) arr[n++] = x;
+        for (int x: nums) if (x > 0) arr[n++] = x; // burst zero balloons
         arr[0] = arr[n++] = 1;
         int[][] dp = new int[n][n];
         for (int k = 2; k < n; k ++) {
@@ -63,7 +63,7 @@ public class BurstBallons {
 
     public static void main(String[] args) {
         int[] nums = {3,1,5,8};
-        BurstBallons bb = new BurstBallons();
+        BurstBalloons bb = new BurstBalloons();
         System.out.println(bb.maxCoins(nums));
     }
 }
