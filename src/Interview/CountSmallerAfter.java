@@ -22,13 +22,14 @@ import java.util.List;
 public class CountSmallerAfter {
     public List<Integer> countSmaller(int[] nums) {
         List<Integer> sorted = new ArrayList<>(); // using ArrayList for fast binary search
-        Integer[] res = new Integer[nums.length];
+        List<Integer> res = new ArrayList<>(nums.length);
+        for (int x: nums) res.add(0);
         for (int i = nums.length - 1; i >= 0; i --) {
             int idx = findIndex(sorted, nums[i]);
-            res[i] =  idx;
+            res.set(i, idx);
             sorted.add(idx, nums[i]);
         }
-        return Arrays.asList(res);
+        return res;
     }
 
     private int findIndex(List<Integer> sorted, int target) {
