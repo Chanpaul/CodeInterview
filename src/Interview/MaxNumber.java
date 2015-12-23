@@ -46,8 +46,7 @@ public class MaxNumber {
                         else if (res1[p1] < res2[p2]) {
                             tmp[p++] = res2[p2++];
                         }
-                        else {
-                            // have to look forward to choose a pointer
+                        else { // have to look forward to choose a pointer
                             int t1 = p1+1, t2 = p2+1;
                             int flag = 0;
                             while (t1 < res1.length && t2 < res2.length) {
@@ -108,9 +107,10 @@ public class MaxNumber {
 
     private int[] maxK(int[] nums, int k) {
         if (k == 0 || k > nums.length) return null;
+        else if (k == nums.length) return nums;
         else {
             int[] res = new int[k];
-            int p = k-1;
+            int p = k-1; // pointer for filling res[]
             Stack<Integer> stack = new Stack<>();
             int curr = maxIdx(nums, 0, nums.length-1);
             stack.push(curr);
