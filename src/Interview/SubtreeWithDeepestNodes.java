@@ -43,19 +43,13 @@ public class SubtreeWithDeepestNodes {
         Treenode res = null;
         for (Treenode child : root.children) {
             int curr = height(child);
-            if (depth == 0) {
+            if (curr > depth) {
                 depth = curr;
                 res = child;
+                cntEqul = 0;
             }
-            else {
-                if (curr > depth) {
-                    depth = curr;
-                    res = child;
-                    cntEqul = 0;
-                }
-                else if (curr == depth) {
-                    cntEqul ++;
-                }
+            else if (curr == depth) {
+                cntEqul ++;
             }
         }
         if (cntEqul > 0) return root;
