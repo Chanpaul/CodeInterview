@@ -1,8 +1,5 @@
 package Interview;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by yongyangyu on 1/28/16.
  * Given a sorted positive integer array nums and an integer n, add/patch elements to the array
