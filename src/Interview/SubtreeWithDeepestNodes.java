@@ -19,6 +19,13 @@ import java.util.Set;
  * deepest nodes:[h,i,j]
  * least common ancestor of [h,i,j]: b
  * return: b
+ *
+ *
+ *                   0
+ *                 /   \
+ *                1     2
+ *                      |
+ *                      3
  */
 public class SubtreeWithDeepestNodes {
     static class Treenode {
