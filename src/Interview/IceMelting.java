@@ -14,14 +14,17 @@ package Interview;
  */
 public class IceMelting {
     public int time(int[] heights) {
-        if (heights.length == 0) return 0;
-        int[] dp = new int[heights.length];
+        int n = heights.length;
+        if (n == 0) return 0;
+        int[] dp = new int[n];
         int largest = Integer.MIN_VALUE;
-        dp[0] = dp[dp.length-1] = 1;
-        for (int i = 1; i <= heights.length-2; i++) {
+        if (heights[0] != 0) dp[0] = 1;
+        if (heights[n-1] != 0) dp[n-1] = 1;
+        dp[0] = dp[n-1] = 1;
+        for (int i = 1; i <= n-2; i++) {
             dp[i] = Math.min(heights[i], dp[i-1]+1);
         }
-        for (int i = heights.length-2; i > 0; i--) {
+        for (int i = n-2; i > 0; i--) {
             dp[i] = Math.min(dp[i], dp[i+1]+1);
             largest = Math.max(largest, dp[i]);
         }
