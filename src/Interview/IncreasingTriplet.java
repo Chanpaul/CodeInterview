@@ -36,7 +36,7 @@ public class IncreasingTriplet {
     }
 
     public static void main(String[] args) {
-        int[] nums = {2,3,1,0,4};
+        int[] nums = {1,0,2,0,0,-1,-1,3};
         IncreasingTriplet it = new IncreasingTriplet();
         System.out.println(it.increasingTriplet(nums));
     }
