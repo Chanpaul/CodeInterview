@@ -34,7 +34,7 @@ package Interview;
  *            i-3│ i-5│i-1
  *               └────┘
  *                i-2
- * See more dicussion from LeetCode.
+ * See more discussion from LeetCode.
  */
 public class SeflCrossing {
     public boolean isSelfCrossing(int[] x) {
