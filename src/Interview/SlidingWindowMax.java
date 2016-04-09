@@ -1,8 +1,6 @@
 package Interview;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.PriorityQueue;
+import java.util.*;
 
 /**
  * Created by yongyangyu on 7/18/15.
@@ -27,42 +25,34 @@ public class SlidingWindowMax {
         if (nums == null || nums.length == 0) {
             return nums;
         }
-        int len = nums.length - k + 1;
-        int[] res = new int[len];
-        PriorityQueue<Integer> pq = new PriorityQueue<>(k, new maxComparator());
+        // q stores the index of the largest element in current window
+        Deque<Integer> q = new LinkedList<>();
         for (int i = 0; i < k; i ++) {
-            pq.add(nums[i]);
-        }
-        res[0] = pq.peek();
-        for (int i = k; i < nums.length; i ++) {
-            if (nums[i - k] != nums[i]) {
-                pq.remove(nums[i - k]);
-                pq.add(nums[i]);
+            while (!q.isEmpty() && nums[i] >= nums[q.getLast()]) {
+                q.pollLast();
             }
-            res[i - k + 1] = pq.peek();
+            q.add(i);
         }
+        int[] res = new int[nums.length - k + 1];
+        for (int i = k; i < nums.length; i ++) {
+            res[i-k] = nums[q.getFirst()];
+            // remove any index smaller than current element from the window
+            while (!q.isEmpty() && nums[i] >= nums[q.getLast()]) {
+                q.pollLast();
+            }
+            // remove any invalid index, i.e., index smaller than left boundary
+            while (!q.isEmpty() && q.getFirst() <= i - k) {
+                q.pollFirst();
+            }
+            q.add(i);
+        }
+        res[nums.length-k] = nums[q.getFirst()];
         return res;
     }
 
-    class maxComparator implements Comparator<Integer> {
-        @Override
-        public int compare(Integer x, Integer y) {
-            if (x == y) {
-                return 0;
-            }
-            else if (x > y) {
-                return -1;
-            }
-            else {
-                return 1;
-            }
-        }
-    }
-
-
     public static void main(String[] args) {
         int[] nums = {1,3,-1,-3,5,3,6,7};
-        int k = 8;
+        int k = 3;
         System.out.println(Arrays.toString(new SlidingWindowMax().maxSlidingWindow(nums, k)));
     }
 }
