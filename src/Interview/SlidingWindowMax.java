@@ -44,6 +44,7 @@ public class SlidingWindowMax {
             while (!q.isEmpty() && q.getFirst() <= i - k) {
                 q.pollFirst();
             }
+            // each element is added to q once
             q.add(i);
         }
         res[nums.length-k] = nums[q.getFirst()];
