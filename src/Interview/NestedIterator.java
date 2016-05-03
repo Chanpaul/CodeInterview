@@ -60,6 +60,7 @@ public class NestedIterator implements Iterator<Integer> {
         return !stack.isEmpty();
     }
 
+    // add a test case class
     public static class NestIntegerImpl implements NestedInteger {
         private Integer x;
         private List<NestedInteger> list;
